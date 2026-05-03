@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LT-2047 — PM Work Sample · Kiran</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:#FAFAF8;--surface:#F2F1EE;--border:rgba(0,0,0,0.10);--border-mid:rgba(0,0,0,0.16);
+    --text:#1A1A18;--text-2:#5A5954;--text-3:#999890;--accent:#1D9E75;
+    --blue-bg:#E6F1FB;--blue-text:#0C447C;--blue-border:#378ADD;
+    --amber-bg:#FAEEDA;--amber-text:#633806;--amber-border:#EF9F27;
+    --green-bg:#EAF3DE;--green-text:#27500A;--green-border:#639922;
+  }
+  @media(prefers-color-scheme:dark){:root{
+    --bg:#171715;--surface:#212120;--border:rgba(255,255,255,0.10);--border-mid:rgba(255,255,255,0.16);
+    --text:#F0EFE8;--text-2:#A8A79F;--text-3:#666660;--accent:#5DCAA5;
+    --blue-bg:#042C53;--blue-text:#85B7EB;--blue-border:#185FA5;
+    --amber-bg:#412402;--amber-text:#FAC775;--amber-border:#854F0B;
+    --green-bg:#173404;--green-text:#C0DD97;--green-border:#3B6D11;
+  }}
+  body{background:var(--bg);color:var(--text);font-family:'DM Mono',monospace;font-size:14px;line-height:1.6;padding:3rem 1.5rem 5rem}
+  .page{max-width:780px;margin:0 auto}
+  .back{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--text-3);text-decoration:none;letter-spacing:.05em;margin-bottom:2.25rem;transition:color .15s}
+  .back:hover{color:var(--text-2)}
+  .breadcrumb{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--text-3);margin-bottom:2rem;letter-spacing:.06em;text-transform:uppercase}
+  .breadcrumb span{color:var(--text-2)}
+  .tid{display:inline-flex;align-items:center;gap:7px;background:var(--surface);border:.5px solid var(--border);border-radius:4px;padding:4px 11px;font-size:11px;color:var(--text-2);letter-spacing:.05em;margin-bottom:1.25rem}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);flex-shrink:0}
+  h1{font-family:'Fraunces',serif;font-size:28px;font-weight:500;line-height:1.3;letter-spacing:-.02em;margin-bottom:1.5rem}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:2.25rem;padding-bottom:1.75rem;border-bottom:.5px solid var(--border)}
+  .tag{font-size:11px;padding:3px 10px;border-radius:4px;letter-spacing:.03em;border:.5px solid}
+  .tf{background:var(--blue-bg);color:var(--blue-text);border-color:var(--blue-border)}
+  .tp{background:var(--amber-bg);color:var(--amber-text);border-color:var(--amber-border)}
+  .ts{background:var(--surface);color:var(--text-2);border-color:var(--border)}
+  .label{font-size:10px;letter-spacing:.10em;text-transform:uppercase;color:var(--text-3);margin-bottom:.5rem;font-weight:400}
+  .ctx{background:var(--surface);border:.5px solid var(--border);border-radius:8px;padding:1.25rem 1.5rem;font-size:13px;line-height:1.75;color:var(--text-2);margin-bottom:2.25rem}
+  .ctx strong{display:block;font-size:10px;letter-spacing:.10em;text-transform:uppercase;color:var(--text-3);margin-bottom:.5rem;font-weight:400}
+  .story{background:var(--surface);border:.5px solid var(--border);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:1.25rem 1.5rem;margin-bottom:2.25rem;font-size:14px;line-height:1.9}
+  .story em{font-style:italic;color:var(--text-2);font-family:'Fraunces',serif;font-size:15px}
+  section{margin-bottom:2.25rem}
+  hr{border:none;border-top:.5px solid var(--border);margin:1.75rem 0}
+  ul{list-style:none;padding:0}
+  ul li{display:flex;gap:12px;padding:.65rem 0;border-bottom:.5px solid var(--border);font-size:13px;line-height:1.65;align-items:flex-start}
+  ul li:last-child{border-bottom:none}
+  .ci{width:17px;height:17px;border-radius:4px;border:1.5px solid var(--accent);flex-shrink:0;margin-top:2px;position:relative}
+  .ci::after{content:'';position:absolute;width:9px;height:5px;border-left:1.5px solid var(--accent);border-bottom:1.5px solid var(--accent);transform:rotate(-45deg);top:3px;left:3px}
+  .wi{width:17px;height:17px;border-radius:50%;background:var(--amber-bg);border:1px solid var(--amber-border);flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--amber-text);font-weight:500}
+  .dn{background:var(--surface);border:.5px solid var(--border);border-radius:8px;padding:1.25rem 1.5rem;font-size:12.5px;line-height:1.8;color:var(--text-2)}
+  .dn p{margin-bottom:.6rem}
+  .dn p:last-child{margin-bottom:0}
+  code{background:var(--bg);border:.5px solid var(--border-mid);border-radius:3px;padding:1px 6px;font-size:11.5px;color:var(--text);font-family:'DM Mono',monospace}
+  .dg{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
+  .di{display:flex;align-items:flex-start;gap:10px;padding:.8rem 1rem;background:var(--surface);border:.5px solid var(--border);border-radius:8px;font-size:12.5px;line-height:1.55}
+  .dt{color:var(--accent);font-size:14px;flex-shrink:0;margin-top:1px}
+  footer{margin-top:3.5rem;padding-top:1.5rem;border-top:.5px solid var(--border);font-size:11px;color:var(--text-3);text-align:center;letter-spacing:.05em}
+  @media(max-width:600px){body{padding:2rem 1rem 4rem}h1{font-size:22px}.dg{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="page">
+  <a class="back" href="index.html">← back to portfolio</a>
+  <nav class="breadcrumb">LogiTrack Platform <span>›</span> Fleet & Dispatch <span>›</span> Notifications</nav>
+  <div class="tid"><span class="dot"></span>LT-2047 &nbsp;·&nbsp; In Progress</div>
+  <h1>Real-time delay alerts for fleet managers when shipment ETAs shift beyond threshold</h1>
+  <div class="meta-row">
+    <span class="tag tf">Feature</span>
+    <span class="tag tp">High priority</span>
+    <span class="tag ts">Sprint 14</span>
+    <span class="tag ts">Notifications · Backend</span>
+    <span class="tag ts">Estimate: 5 pts</span>
+  </div>
+  <div class="ctx">
+    <strong>Context</strong>
+    Fleet managers currently discover shipment delays only when drivers call in or clients complain. There is no proactive system-triggered alert when a shipment's live ETA deviates significantly from the committed delivery window. This causes reactive scrambling, client trust erosion, and missed SLA documentation opportunities.
+  </div>
+  <section>
+    <p class="label">User Story</p>
+    <div class="story">
+      <em>As a fleet manager,</em><br>
+      I want to receive an automated alert when a shipment's estimated arrival time shifts by more than 30 minutes from the committed delivery window,<br>
+      <em>so that</em> I can proactively inform the client, reassign resources if needed, and log the delay reason before the delivery window lapses.
+    </div>
+  </section>
+  <hr>
+  <section>
+    <p class="label">Acceptance Criteria</p>
+    <ul>
+      <li><span class="ci"></span><span>When a shipment's live ETA (from GPS telemetry) deviates by ≥ 30 minutes from the committed delivery window, the system triggers an in-app notification and an email alert to the assigned fleet manager within 2 minutes of the threshold being crossed.</span></li>
+      <li><span class="ci"></span><span>The alert includes: shipment ID, driver name, origin → destination route, committed ETA, current ETA, and estimated delay duration. No other fields are required in the initial alert.</span></li>
+      <li><span class="ci"></span><span>If the ETA recovers (delay drops below 30 min), a single "ETA recovered" notification is sent. No further delay alerts fire for that shipment unless the threshold is crossed again after a 60-minute cool-down period.</span></li>
+      <li><span class="ci"></span><span>The fleet manager can configure the delay threshold (default 30 min) per delivery zone from the Notification Settings panel. Valid range: 15–120 minutes, in 15-minute increments.</span></li>
+      <li><span class="ci"></span><span>Alerts are not triggered for shipments already marked as "Delivered," "Cancelled," or "On Hold" in the system at the time of ETA recalculation.</span></li>
+      <li><span class="ci"></span><span>In-app alerts appear in the existing Notification Center and increment the unread badge count. They are dismissible and persistent until manually cleared by the manager.</span></li>
+    </ul>
+  </section>
+  <hr>
+  <section>
+    <p class="label">Edge Cases & Constraints</p>
+    <ul>
+      <li><span class="wi">!</span><span><strong>GPS signal loss:</strong> If telemetry is unavailable for &gt; 10 minutes, suppress ETA recalculation and do not fire delay alerts. Show a "Tracking unavailable" flag on the shipment card instead.</span></li>
+      <li><span class="wi">!</span><span><strong>Multiple delay events:</strong> Do not send duplicate alerts for the same shipment within the 60-minute cool-down window even if the ETA continues to slip. Aggregate slippage data silently until the cool-down resets.</span></li>
+      <li><span class="wi">!</span><span><strong>Manager not assigned:</strong> If no fleet manager is assigned to a shipment, route the alert to the team's default Ops email (configurable in Team Settings). Log this fallback in the audit trail.</span></li>
+      <li><span class="wi">!</span><span><strong>Night-shift quiet hours:</strong> Email alerts should respect the manager's quiet hours setting (if configured). In-app notifications should still fire and be visible on login.</span></li>
+    </ul>
+  </section>
+  <hr>
+  <section>
+    <p class="label">Technical Notes (for devs)</p>
+    <div class="dn">
+      <p>ETA source: pull from <code>shipment.live_eta</code> field, updated every 5 min by the telematics service. Committed window is stored in <code>shipment.committed_eta</code> at booking time — treat this as immutable for alert calculations.</p>
+      <p>Threshold comparison: <code>abs(live_eta - committed_eta) >= threshold_minutes * 60</code>. Run this check on every ETA update event from the telematics queue.</p>
+      <p>Email template: use existing transactional email layout. Subject line format: <code>[Delay Alert] #{shipment_id} — {route} — ETA now {new_eta}</code>.</p>
+      <p>Notification storage: persist alerts in the <code>notifications</code> table with <code>type = 'delay_alert'</code> and <code>shipment_id</code> FK. Ensure alert records survive shipment status changes for audit purposes.</p>
+    </div>
+  </section>
+  <hr>
+  <section>
+    <p class="label">Definition of Done</p>
+    <div class="dg">
+      <div class="di"><span class="dt">✓</span> Feature works end-to-end in staging with a simulated delay event</div>
+      <div class="di"><span class="dt">✓</span> Unit tests cover threshold logic, cool-down, and suppression rules</div>
+      <div class="di"><span class="dt">✓</span> Email and in-app alert both confirmed delivered in QA sign-off</div>
+      <div class="di"><span class="dt">✓</span> Settings panel accepts and saves threshold configuration correctly</div>
+      <div class="di"><span class="dt">✓</span> Edge cases (GPS loss, unassigned manager) tested and handled gracefully</div>
+      <div class="di"><span class="dt">✓</span> PM has reviewed and signed off the build against this ticket</div>
+    </div>
+  </section>
+  <footer>written by kiran &nbsp;·&nbsp; delivery manager &nbsp;·&nbsp; lt-2047 &nbsp;·&nbsp; logitrack platform</footer>
+</div>
+</body>
+</html>

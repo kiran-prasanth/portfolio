@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BS-089 — PM Work Sample · Kiran</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:#FAFAF8;--surface:#F2F1EE;--border:rgba(0,0,0,0.10);--border-mid:rgba(0,0,0,0.16);
+    --text:#1A1A18;--text-2:#5A5954;--text-3:#999890;--accent:#BA7517;
+    --blue-bg:#E6F1FB;--blue-text:#0C447C;--blue-border:#378ADD;
+    --amber-bg:#FAEEDA;--amber-text:#633806;--amber-border:#EF9F27;
+    --purple-bg:#EEEDFE;--purple-text:#3C3489;--purple-border:#7F77DD;
+    --green-bg:#EAF3DE;--green-text:#27500A;--green-border:#639922;
+    --red-bg:#FCEBEB;--red-text:#791F1F;--red-border:#E24B4A;
+  }
+  @media(prefers-color-scheme:dark){:root{
+    --bg:#171715;--surface:#212120;--border:rgba(255,255,255,0.10);--border-mid:rgba(255,255,255,0.16);
+    --text:#F0EFE8;--text-2:#A8A79F;--text-3:#666660;--accent:#EF9F27;
+    --blue-bg:#042C53;--blue-text:#85B7EB;--blue-border:#185FA5;
+    --amber-bg:#412402;--amber-text:#FAC775;--amber-border:#854F0B;
+    --purple-bg:#26215C;--purple-text:#AFA9EC;--purple-border:#534AB7;
+    --green-bg:#173404;--green-text:#C0DD97;--green-border:#3B6D11;
+    --red-bg:#501313;--red-text:#F7C1C1;--red-border:#A32D2D;
+  }}
+  body{background:var(--bg);color:var(--text);font-family:'DM Mono',monospace;font-size:14px;line-height:1.6;padding:3rem 1.5rem 5rem}
+  .page{max-width:800px;margin:0 auto}
+  .back{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--text-3);text-decoration:none;letter-spacing:.05em;margin-bottom:2.25rem;transition:color .15s}
+  .back:hover{color:var(--text-2)}
+  .breadcrumb{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--text-3);margin-bottom:2rem;letter-spacing:.06em;text-transform:uppercase}
+  .breadcrumb span{color:var(--text-2)}
+  .tid{display:inline-flex;align-items:center;gap:7px;background:var(--surface);border:.5px solid var(--border);border-radius:4px;padding:4px 11px;font-size:11px;color:var(--text-2);letter-spacing:.05em;margin-bottom:1.25rem}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);flex-shrink:0}
+  h1{font-family:'Fraunces',serif;font-size:28px;font-weight:500;line-height:1.3;letter-spacing:-.02em;margin-bottom:1.5rem}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:.5px solid var(--border)}
+  .tag{font-size:11px;padding:3px 10px;border-radius:4px;letter-spacing:.03em;border:.5px solid}
+  .tf{background:var(--blue-bg);color:var(--blue-text);border-color:var(--blue-border)}
+  .tp{background:var(--amber-bg);color:var(--amber-text);border-color:var(--amber-border)}
+  .ts{background:var(--surface);color:var(--text-2);border-color:var(--border)}
+  .tt{background:var(--purple-bg);color:var(--purple-text);border-color:var(--purple-border)}
+  .tc{background:var(--green-bg);color:var(--green-text);border-color:var(--green-border)}
+  .label{font-size:10px;letter-spacing:.10em;text-transform:uppercase;color:var(--text-3);margin-bottom:.5rem;font-weight:400}
+  .ctx{background:var(--surface);border:.5px solid var(--border);border-radius:8px;padding:1.25rem 1.5rem;font-size:13px;line-height:1.75;color:var(--text-2);margin-bottom:2rem}
+  .ctx strong{display:block;font-size:10px;letter-spacing:.10em;text-transform:uppercase;color:var(--text-3);margin-bottom:.5rem;font-weight:400}
+  .story{background:var(--surface);border:.5px solid var(--border);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:1.25rem 1.5rem;margin-bottom:1rem;font-size:14px;line-height:1.9}
+  .story em{font-style:italic;color:var(--text-2);font-family:'Fraunces',serif;font-size:15px}
+  section{margin-bottom:2rem}
+  hr{border:none;border-top:.5px solid var(--border);margin:1.5rem 0}
+  ul{list-style:none;padding:0}
+  ul li{display:flex;gap:12px;padding:.65rem 0;border-bottom:.5px solid var(--border);font-size:13px;line-height:1.65;align-items:flex-start}
+  ul li:last-child{border-bottom:none}
+  .ci{width:17px;height:17px;border-radius:4px;border:1.5px solid var(--accent);flex-shrink:0;margin-top:2px;position:relative}
+  .ci::after{content:'';position:absolute;width:9px;height:5px;border-left:1.5px solid var(--accent);border-bottom:1.5px solid var(--accent);transform:rotate(-45deg);top:3px;left:3px}
+  .wi{width:17px;height:17px;border-radius:50%;background:var(--amber-bg);border:1px solid var(--amber-border);flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--amber-text);font-weight:500}
+  .dn{background:var(--surface);border:.5px solid var(--border);border-radius:8px;padding:1.25rem 1.5rem;font-size:12.5px;line-height:1.85;color:var(--text-2)}
+  .dn p{margin-bottom:.75rem}.dn p:last-child{margin-bottom:0}
+  .dn strong{font-weight:500;color:var(--text)}
+  code{background:var(--bg);border:.5px solid var(--border-mid);border-radius:3px;padding:1px 6px;font-size:11.5px;color:var(--text);font-family:'DM Mono',monospace}
+  .flow{display:flex;align-items:center;flex-wrap:wrap;gap:0;margin:1rem 0 1.5rem}
+  .flow-step{background:var(--surface);border:.5px solid var(--border);border-radius:6px;padding:.55rem .9rem;font-size:11.5px;white-space:nowrap}
+  .flow-arrow{font-size:12px;color:var(--text-3);padding:0 6px;flex-shrink:0}
+  .semver-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:.75rem}
+  .semver-table th{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);font-weight:400;padding:.4rem .75rem;border-bottom:.5px solid var(--border);text-align:left}
+  .semver-table td{padding:.5rem .75rem;border-bottom:.5px solid var(--border);font-size:12px;vertical-align:top}
+  .semver-table tr:last-child td{border-bottom:none}
+  .badge{display:inline-block;font-size:10px;padding:2px 8px;border-radius:3px;border:.5px solid;letter-spacing:.03em}
+  .b-major{background:var(--red-bg);color:var(--red-text);border-color:var(--red-border)}
+  .b-minor{background:var(--amber-bg);color:var(--amber-text);border-color:var(--amber-border)}
+  .b-patch{background:var(--green-bg);color:var(--green-text);border-color:var(--green-border)}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:.75rem}
+  .col-block{background:var(--surface);border:.5px solid var(--border);border-radius:8px;padding:1rem 1.15rem}
+  .col-block .col-label{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);margin-bottom:.5rem;font-weight:400}
+  .col-block ul{padding:0}
+  .col-block ul li{font-size:12px;padding:.3rem 0;gap:8px;line-height:1.5}
+  .bullet{width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:6px}
+  .dg{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
+  .di{display:flex;align-items:flex-start;gap:10px;padding:.8rem 1rem;background:var(--surface);border:.5px solid var(--border);border-radius:8px;font-size:12.5px;line-height:1.55}
+  .dt{color:var(--accent);font-size:14px;flex-shrink:0;margin-top:1px}
+  footer{margin-top:3.5rem;padding-top:1.5rem;border-top:.5px solid var(--border);font-size:11px;color:var(--text-3);text-align:center;letter-spacing:.05em}
+  @media(max-width:600px){body{padding:2rem 1rem 4rem}h1{font-size:22px}.two-col{grid-template-columns:1fr}.dg{grid-template-columns:1fr}.flow{gap:4px}}
+</style>
+</head>
+<body>
+<div class="page">
+  <a class="back" href="index.html">← back to portfolio</a>
+  <nav class="breadcrumb">Brandshark <span>›</span> Design Systems <span>›</span> Token Infrastructure</nav>
+  <div class="tid"><span class="dot"></span>BS-089 &nbsp;·&nbsp; In Progress &nbsp;·&nbsp; Epic</div>
+  <h1>Automated design token sync pipeline — push Figma variable changes to client codebase via PR, no manual handoff</h1>
+  <div class="meta-row">
+    <span class="tag tf">Epic</span>
+    <span class="tag tp">High priority</span>
+    <span class="tag ts">Sprint 11–12</span>
+    <span class="tag tt">Design Systems · Frontend · Integrations</span>
+    <span class="tag tc">13 pts</span>
+  </div>
+  <div class="ctx">
+    <strong>Problem</strong>
+    Every time a designer updates a colour, spacing value, or typeface in Figma, a developer must manually diff the changes, update CSS/SCSS variables in the client's codebase, and push a commit — taking 30–90 minutes per update and introducing transcription errors across all active client retainers. At 6 concurrent design-system clients, this manual sync consumes approximately 8–12 developer hours per sprint. This epic scopes an automated pipeline that detects Figma variable changes, transforms tokens into code-ready output, and opens a versioned pull request — requiring only a developer review and merge.
+  </div>
+  <section>
+    <p class="label">Pipeline Overview</p>
+    <div class="flow">
+      <span class="flow-step">Figma Variables API</span><span class="flow-arrow">→</span>
+      <span class="flow-step">Webhook trigger</span><span class="flow-arrow">→</span>
+      <span class="flow-step">Token extraction</span><span class="flow-arrow">→</span>
+      <span class="flow-step">Style Dictionary transform</span><span class="flow-arrow">→</span>
+      <span class="flow-step">Diff &amp; semver check</span><span class="flow-arrow">→</span>
+      <span class="flow-step">GitHub PR (auto-opened)</span><span class="flow-arrow">→</span>
+      <span class="flow-step">Dev review &amp; merge</span>
+    </div>
+  </section>
+  <section>
+    <p class="label">User Stories</p>
+    <div class="story" style="margin-bottom:1rem">
+      <em>As a designer at Brandshark,</em><br>
+      I want my Figma variable changes to automatically propagate to the client's codebase as a pull request,<br>
+      <em>so that</em> I can iterate on the design system without waiting for a developer or risking values being transcribed incorrectly.
+    </div>
+    <div class="story">
+      <em>As a developer reviewing the client's codebase,</em><br>
+      I want the auto-generated PR to clearly show what changed, what type of change it is, and whether any tokens were renamed or removed,<br>
+      <em>so that</em> I can confidently merge or flag breaking changes without reverse-engineering the Figma file.
+    </div>
+  </section>
+  <hr>
+  <section>
+    <p class="label">Acceptance Criteria</p>
+    <ul>
+      <li><span class="ci"></span><span>When a designer publishes a Figma variable change in a monitored file, the pipeline triggers within 5 minutes. The designer does not need to do anything beyond the normal Figma publish action.</span></li>
+      <li><span class="ci"></span><span>The extraction service reads all variables via the Figma Variables REST API and outputs a structured <code>tokens.json</code> following the W3C DTCG format, committed to a <code>/tokens</code> branch before transformation.</span></li>
+      <li><span class="ci"></span><span>Style Dictionary transforms <code>tokens.json</code> into CSS custom properties (<code>tokens.css</code>), SCSS variables (<code>tokens.scss</code>), and a flat JS object (<code>tokens.js</code>). All three are included in the PR. Output format is configurable per client.</span></li>
+      <li><span class="ci"></span><span>The pipeline performs a semantic version bump before opening the PR. Rules: patch for value changes; minor for new tokens added; major for any token renamed or deleted. PR title includes the bumped version and a one-line summary.</span></li>
+      <li><span class="ci"></span><span>The auto-generated PR description includes a diff table: changed token names, old value, new value, and change type (updated / added / removed). Removed tokens are highlighted with a warning block.</span></li>
+      <li><span class="ci"></span><span>If the pipeline detects a major version bump, it posts a Slack notification to <code>#ds-alerts</code> tagging the assigned developer before the PR is opened.</span></li>
+      <li><span class="ci"></span><span>Each client has an isolated config at <code>/config/{client-slug}.json</code> specifying: Figma file ID, target repo, target branch, output formats, Slack channel, and per-token-group exclusions (tokens prefixed <code>_draft</code> are never exported).</span></li>
+      <li><span class="ci"></span><span>If the pipeline fails at any stage, it logs a structured error to the internal monitoring dashboard and sends a Slack alert to <code>#ds-pipeline-errors</code>. It does not silently fail.</span></li>
+    </ul>
+  </section>
+  <hr>
+  <section>
+    <p class="label">Semantic Versioning Rules</p>
+    <table class="semver-table">
+      <thead><tr><th>Change type</th><th>Example</th><th>Version bump</th><th>Breaking?</th></tr></thead>
+      <tbody>
+        <tr><td>Token value updated</td><td><code>color.primary</code>: <code>#1A1AFF</code> → <code>#1B2EFF</code></td><td><span class="badge b-patch">patch</span></td><td>No</td></tr>
+        <tr><td>New token added</td><td><code>spacing.xl</code> introduced</td><td><span class="badge b-minor">minor</span></td><td>No</td></tr>
+        <tr><td>Token renamed</td><td><code>color.brand</code> → <code>color.primary</code></td><td><span class="badge b-major">major</span></td><td>Yes — Slack alert fires</td></tr>
+        <tr><td>Token deleted</td><td><code>spacing.xs</code> removed</td><td><span class="badge b-major">major</span></td><td>Yes — Slack alert fires</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <hr>
+  <section>
+    <p class="label">Edge Cases & Constraints</p>
+    <ul>
+      <li><span class="wi">!</span><span><strong>Figma API rate limits:</strong> The Figma Variables API allows 1 request per second per token. Files with more than 500 tokens require request queuing with exponential back-off — not parallelised bursts — to avoid 429 errors mid-pipeline.</span></li>
+      <li><span class="wi">!</span><span><strong>Draft / WIP tokens:</strong> Any token beginning with <code>_</code> or in a group marked <code>[wip]</code> must be excluded at the extraction step — not as a post-transform filter.</span></li>
+      <li><span class="wi">!</span><span><strong>Multi-mode tokens:</strong> Figma variable modes (light/dark, brand A/brand B) must be preserved in output. Output files named accordingly: <code>tokens.light.css</code>, <code>tokens.dark.css</code>.</span></li>
+      <li><span class="wi">!</span><span><strong>No open PR conflict:</strong> If a previous PR is still open and unmerged, do not open a second PR. Push new commits to the existing branch and update the PR description with the cumulative diff.</span></li>
+      <li><span class="wi">!</span><span><strong>GitHub permissions:</strong> The pipeline uses a Brandshark-managed GitHub App — not a personal access token — so access can be scoped per-repository and revoked per-client without rotating shared credentials.</span></li>
+    </ul>
+  </section>
+  <hr>
+  <section>
+    <p class="label">Out of Scope (this epic)</p>
+    <div class="two-col">
+      <div class="col-block">
+        <div class="col-label">Not in this epic</div>
+        <ul>
+          <li><span class="bullet"></span><span>Auto-merging PRs without developer review</span></li>
+          <li><span class="bullet"></span><span>Figma component sync (only variables/tokens)</span></li>
+          <li><span class="bullet"></span><span>Support for non-GitHub repos (GitLab, Bitbucket)</span></li>
+          <li><span class="bullet"></span><span>Client-facing dashboard to view sync history</span></li>
+        </ul>
+      </div>
+      <div class="col-block">
+        <div class="col-label">Separate tickets raised</div>
+        <ul>
+          <li><span class="bullet"></span><span>BS-091 — Client sync history dashboard</span></li>
+          <li><span class="bullet"></span><span>BS-092 — GitLab support for enterprise clients</span></li>
+          <li><span class="bullet"></span><span>BS-094 — Token linting rules pre-export</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <hr>
+  <section>
+    <p class="label">Technical Notes (for devs)</p>
+    <div class="dn">
+      <p><strong>Figma trigger:</strong> Use Figma's <code>FILE_VERSION_UPDATE</code> webhook event. Register per client file ID at onboarding. Payload includes <code>file_key</code> and <code>timestamp</code> — use to fetch variables via <code>GET /v1/files/:file_key/variables/local</code>.</p>
+      <p><strong>Token transformation:</strong> Style Dictionary is the transform layer. Write a custom formatter for DTCG-to-CSS-custom-property output — Style Dictionary's built-in CSS formatter does not handle DTCG <code>$value</code> and <code>$type</code> structure natively. Keep the formatter as a standalone module for reuse in BS-094.</p>
+      <p><strong>Diff logic:</strong> After transform, diff new <code>tokens.json</code> against the last-merged version stored in <code>/tokens/.last-sync.json</code> in the repo. Classify each delta programmatically — do not rely on Git diff for semantic classification.</p>
+      <p><strong>PR auto-generation:</strong> Use GitHub REST API (<code>POST /repos/{owner}/{repo}/pulls</code>). PR body is templated in Markdown from the diff output. Assign to repo's default reviewer (set per client in config). Label with <code>design-system</code> and semver tier (<code>breaking</code>, <code>minor</code>, or <code>patch</code>).</p>
+      <p><strong>Config schema:</strong> All client configs validated against a JSON Schema on pipeline boot. If malformed, pipeline refuses to run for that client and logs the validation error — no silent fallback to defaults.</p>
+    </div>
+  </section>
+  <hr>
+  <section>
+    <p class="label">Definition of Done</p>
+    <div class="dg">
+      <div class="di"><span class="dt">✓</span> Pipeline runs end-to-end on a test Figma file and opens a real PR in a sandbox repo</div>
+      <div class="di"><span class="dt">✓</span> All four semver scenarios tested and produce correct version bumps</div>
+      <div class="di"><span class="dt">✓</span> Slack alert fires correctly on major bump; silent on patch and minor</div>
+      <div class="di"><span class="dt">✓</span> Draft token exclusion confirmed — <code>_draft</code> tokens absent from all output files</div>
+      <div class="di"><span class="dt">✓</span> Multi-mode output produces separate files per mode, correctly named</div>
+      <div class="di"><span class="dt">✓</span> Open-PR deduplication tested — second run pushes to existing branch</div>
+      <div class="di"><span class="dt">✓</span> Pipeline failure (simulated API error) logs to dashboard and sends Slack alert</div>
+      <div class="di"><span class="dt">✓</span> PM signed off against all ACs and ran a live demo with the design team</div>
+    </div>
+  </section>
+  <footer>written by kiran &nbsp;·&nbsp; project manager &nbsp;·&nbsp; bs-089 &nbsp;·&nbsp; brandshark &nbsp;·&nbsp; design systems · integrations</footer>
+</div>
+</body>
+</html>

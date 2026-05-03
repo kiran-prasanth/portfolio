@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PM Work Samples · Kiran</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #FAFAF8;
+    --surface: #F2F1EE;
+    --border: rgba(0,0,0,0.10);
+    --text: #1A1A18;
+    --text-2: #5A5954;
+    --text-3: #999890;
+    --amber: #BA7517;
+    --amber-bg: #FAEEDA; --amber-text: #633806; --amber-border: #EF9F27;
+    --blue-bg: #E6F1FB; --blue-text: #0C447C; --blue-border: #378ADD;
+    --purple-bg: #EEEDFE; --purple-text: #3C3489; --purple-border: #7F77DD;
+    --green-bg: #EAF3DE; --green-text: #27500A; --green-border: #639922;
+    --teal: #1D9E75; --teal-bg: #E1F5EE;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #171715; --surface: #212120;
+      --border: rgba(255,255,255,0.10);
+      --text: #F0EFE8; --text-2: #A8A79F; --text-3: #666660;
+      --amber: #EF9F27;
+      --amber-bg: #412402; --amber-text: #FAC775; --amber-border: #854F0B;
+      --blue-bg: #042C53; --blue-text: #85B7EB; --blue-border: #185FA5;
+      --purple-bg: #26215C; --purple-text: #AFA9EC; --purple-border: #534AB7;
+      --green-bg: #173404; --green-text: #C0DD97; --green-border: #3B6D11;
+      --teal: #5DCAA5; --teal-bg: #04342C;
+    }
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 0;
+  }
+
+  .hero {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 4rem 2rem 3rem;
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: 1.25rem;
+  }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-size: 38px;
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    margin-bottom: 1.25rem;
+  }
+  h1 span { color: var(--text-3); }
+
+  .hero-body {
+    font-size: 13.5px;
+    line-height: 1.8;
+    color: var(--text-2);
+    max-width: 560px;
+    margin-bottom: 2rem;
+  }
+
+  .meta-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .pill {
+    font-size: 11px;
+    padding: 3px 11px;
+    border-radius: 4px;
+    border: 0.5px solid var(--border);
+    background: var(--surface);
+    color: var(--text-2);
+    letter-spacing: 0.03em;
+  }
+
+  .tickets-section {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 3rem 2rem 5rem;
+  }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: 1.25rem;
+  }
+
+  .ticket-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    background: var(--bg);
+    border: 0.5px solid var(--border);
+    border-radius: 10px;
+    padding: 1.5rem 1.75rem;
+    margin-bottom: 1rem;
+    transition: border-color 0.15s, background 0.15s;
+    position: relative;
+  }
+  .ticket-card:hover {
+    border-color: rgba(0,0,0,0.22);
+    background: var(--surface);
+  }
+  @media (prefers-color-scheme: dark) {
+    .ticket-card:hover { border-color: rgba(255,255,255,0.22); }
+  }
+
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+  }
+
+  .card-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .ticket-id-badge {
+    font-size: 11px;
+    padding: 2px 9px;
+    border-radius: 4px;
+    border: 0.5px solid var(--border);
+    background: var(--surface);
+    color: var(--text-3);
+    letter-spacing: 0.04em;
+  }
+
+  .tag {
+    font-size: 11px;
+    padding: 2px 9px;
+    border-radius: 4px;
+    border: 0.5px solid;
+    letter-spacing: 0.03em;
+  }
+  .t-blue { background: var(--blue-bg); color: var(--blue-text); border-color: var(--blue-border); }
+  .t-purple { background: var(--purple-bg); color: var(--purple-text); border-color: var(--purple-border); }
+  .t-green { background: var(--green-bg); color: var(--green-text); border-color: var(--green-border); }
+  .t-amber { background: var(--amber-bg); color: var(--amber-text); border-color: var(--amber-border); }
+  .t-surface { background: var(--surface); color: var(--text-2); border-color: var(--border); }
+
+  .arrow {
+    font-size: 16px;
+    color: var(--text-3);
+    transition: transform 0.15s, color 0.15s;
+  }
+  .ticket-card:hover .arrow {
+    transform: translate(3px, -3px);
+    color: var(--text-2);
+  }
+
+  .card-title {
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    margin-bottom: 0.6rem;
+  }
+
+  .card-desc {
+    font-size: 12.5px;
+    line-height: 1.7;
+    color: var(--text-2);
+    max-width: 580px;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 1rem;
+    padding-top: 0.85rem;
+    border-top: 0.5px solid var(--border);
+    flex-wrap: wrap;
+  }
+
+  .role-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--text-3);
+    letter-spacing: 0.02em;
+  }
+  .role-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .complexity-bar {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: var(--text-3);
+  }
+  .bar-dots { display: flex; gap: 3px; }
+  .bar-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--border);
+  }
+  .bar-dot.filled { background: var(--text-3); }
+
+  .divider {
+    color: var(--text-3);
+    font-size: 11px;
+  }
+
+  footer {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 2rem 3rem;
+    font-size: 11px;
+    color: var(--text-3);
+    letter-spacing: 0.04em;
+    border-top: 0.5px solid var(--border);
+    padding-top: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  @media (max-width: 600px) {
+    h1 { font-size: 28px; }
+    .hero { padding: 3rem 1.25rem 2rem; }
+    .tickets-section { padding: 2rem 1.25rem 4rem; }
+    footer { padding: 1.5rem 1.25rem 3rem; }
+    .card-top { flex-wrap: wrap; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <p class="eyebrow">PM Work Samples</p>
+  <h1>Kiran<br><span>Delivery Manager</span></h1>
+  <p class="hero-body">
+    A curated set of tickets and user stories written across product and delivery roles. Each ticket is written to be developer-ready — precise acceptance criteria, explicit edge cases, clear technical context, and a definition of done that a QA engineer can test without follow-up questions.
+  </p>
+  <div class="meta-pills">
+    <span class="pill">3.3 yrs experience</span>
+    <span class="pill">Logistics SaaS · Design Studio</span>
+    <span class="pill">Agile / Scrum</span>
+    <span class="pill">Requirements · Delivery · QA</span>
+  </div>
+</div>
+
+<div class="tickets-section">
+  <p class="section-label">Tickets — 3 samples</p>
+
+  <!-- Ticket 1 -->
+  <a class="ticket-card" href="lt-2047.html">
+    <div class="card-top">
+      <div class="card-meta">
+        <span class="ticket-id-badge">LT-2047</span>
+        <span class="tag t-blue">Feature</span>
+        <span class="tag t-surface">5 pts</span>
+      </div>
+      <span class="arrow">↗</span>
+    </div>
+    <p class="card-title">Real-time delay alerts for fleet managers when shipment ETAs shift beyond threshold</p>
+    <p class="card-desc">Scoped a proactive notification system on a logistics SaaS platform. When live GPS-tracked ETA deviates from the committed delivery window, fleet managers receive an in-app and email alert — with configurable thresholds, cool-down logic, and a Slack-based escalation path.</p>
+    <div class="card-footer">
+      <span class="role-badge">
+        <span class="role-dot" style="background:#1D9E75"></span>
+        Trinetra Logistics Platform
+      </span>
+      <span class="divider">·</span>
+      <span class="role-badge">Notifications · Backend</span>
+      <div class="complexity-bar">
+        <span>Complexity</span>
+        <div class="bar-dots">
+          <div class="bar-dot filled"></div>
+          <div class="bar-dot filled"></div>
+          <div class="bar-dot"></div>
+        </div>
+      </div>
+    </div>
+  </a>
+
+  <!-- Ticket 2 -->
+  <a class="ticket-card" href="bs-114.html">
+    <div class="card-top">
+      <div class="card-meta">
+        <span class="ticket-id-badge">BS-114</span>
+        <span class="tag t-purple">Feature</span>
+        <span class="tag t-surface">8 pts</span>
+      </div>
+      <span class="arrow">↗</span>
+    </div>
+    <p class="card-title">Self-service brand asset portal so clients can access approved files without raising a studio request</p>
+    <p class="card-desc">Scoped a client-facing brand portal for a design studio, eliminating post-delivery asset requests. Covers per-client access control, CMS-driven file management, click-to-copy colour values, download logging, and font licensing constraints — all without requiring developer intervention for updates.</p>
+    <div class="card-footer">
+      <span class="role-badge">
+        <span class="role-dot" style="background:#534AB7"></span>
+        Brandshark Design Studio
+      </span>
+      <span class="divider">·</span>
+      <span class="role-badge">Web Dev · Design Systems</span>
+      <div class="complexity-bar">
+        <span>Complexity</span>
+        <div class="bar-dots">
+          <div class="bar-dot filled"></div>
+          <div class="bar-dot filled"></div>
+          <div class="bar-dot"></div>
+        </div>
+      </div>
+    </div>
+  </a>
+
+  <!-- Ticket 3 -->
+  <a class="ticket-card" href="bs-089.html">
+    <div class="card-top">
+      <div class="card-meta">
+        <span class="ticket-id-badge">BS-089</span>
+        <span class="tag t-amber">Epic</span>
+        <span class="tag t-surface">13 pts</span>
+      </div>
+      <span class="arrow">↗</span>
+    </div>
+    <p class="card-title">Automated design token sync pipeline — push Figma variable changes to client codebase via PR, no manual handoff</p>
+    <p class="card-desc">Specced an end-to-end automation pipeline that detects Figma variable updates, transforms tokens via Style Dictionary, applies semantic versioning logic, and auto-opens a GitHub PR with a structured diff. Includes multi-mode token support, rate-limit handling, Slack alerts for breaking changes, and per-client config isolation.</p>
+    <div class="card-footer">
+      <span class="role-badge">
+        <span class="role-dot" style="background:#BA7517"></span>
+        Brandshark Design Studio
+      </span>
+      <span class="divider">·</span>
+      <span class="role-badge">Design Systems · Integrations · CI</span>
+      <div class="complexity-bar">
+        <span>Complexity</span>
+        <div class="bar-dots">
+          <div class="bar-dot filled"></div>
+          <div class="bar-dot filled"></div>
+          <div class="bar-dot filled"></div>
+        </div>
+      </div>
+    </div>
+  </a>
+
+</div>
+
+<footer>
+  <span>kiran · pm work samples · 2024</span>
+  <span>delivery management · requirements · agile</span>
+</footer>
+
+</body>
+</html>
