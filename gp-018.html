@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GP-018 — PM Work Sample · Kiran</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0e0f11; --surface: #15171a; --border: #242628;
+    --text: #e2e4e9; --text-muted: #6b7280; --text-dim: #3d4148;
+    --accent: #4f8ef7; --green: #34d399; --amber: #fbbf24;
+    --red: #f87171;
+    --mono: 'DM Mono', monospace; --sans: 'DM Sans', sans-serif;
+  }
+  body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 14px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  .container { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+  header { border-bottom: 1px solid var(--border); padding: 18px 0; }
+  .back { font-family: var(--mono); font-size: 11px; color: var(--text-muted); display: flex; align-items: center; gap: 6px; transition: color 0.15s; }
+  .back:hover { color: var(--accent); }
+  .breadcrumb-row { padding: 32px 0 16px; font-family: var(--mono); font-size: 11px; color: var(--text-muted); }
+  .breadcrumb-row span { color: var(--text-dim); margin: 0 6px; }
+  .ticket-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; align-items: center; }
+  .ticket-id { font-family: var(--mono); font-size: 13px; color: var(--accent); }
+  .ticket-badge { font-family: var(--mono); font-size: 10px; padding: 2px 8px; border-radius: 3px; }
+  .badge-type { background: rgba(79,142,247,0.1); color: var(--accent); border: 1px solid rgba(79,142,247,0.2); }
+  .badge-priority { background: rgba(251,191,36,0.1); color: var(--amber); border: 1px solid rgba(251,191,36,0.2); }
+  .badge-status { background: rgba(52,211,153,0.1); color: var(--green); border: 1px solid rgba(52,211,153,0.2); }
+  h1 { font-size: clamp(18px, 3vw, 24px); font-weight: 500; letter-spacing: -0.01em; line-height: 1.3; margin-bottom: 16px; }
+  .ticket-tags { display: flex; flex-wrap: wrap; gap: 6px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+  .ticket-tag { font-family: var(--mono); font-size: 10px; color: var(--text-muted); border: 1px solid var(--border); padding: 2px 7px; border-radius: 3px; }
+  .section { padding: 28px 0; border-bottom: 1px solid var(--border); }
+  .section:last-child { border-bottom: none; }
+  .section-label { font-family: var(--mono); font-size: 10px; color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 14px; }
+  p { font-size: 13px; color: var(--text-muted); line-height: 1.7; margin-bottom: 10px; }
+  p:last-child { margin-bottom: 0; }
+  .story-block { background: var(--surface); border-left: 2px solid var(--accent); padding: 16px 18px; border-radius: 0 5px 5px 0; font-size: 13px; color: var(--text-muted); line-height: 1.7; }
+  .story-block em { color: var(--text); font-style: normal; font-weight: 500; }
+  .ac-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .ac-list li { font-size: 13px; color: var(--text-muted); padding-left: 22px; position: relative; line-height: 1.6; }
+  .ac-list li::before { content: '—'; position: absolute; left: 0; color: var(--text-dim); font-family: var(--mono); font-size: 11px; }
+  .edge-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .edge-list li { font-size: 13px; color: var(--text-muted); padding-left: 22px; position: relative; line-height: 1.6; }
+  .edge-list li::before { content: '!'; position: absolute; left: 0; color: var(--amber); font-family: var(--mono); font-size: 11px; font-weight: 500; }
+  .tech-block { background: var(--surface); border: 1px solid var(--border); border-radius: 5px; padding: 16px 18px; font-size: 12px; color: var(--text-muted); line-height: 1.7; }
+  .tech-block code { font-family: var(--mono); font-size: 11px; color: var(--accent); background: rgba(79,142,247,0.08); padding: 1px 5px; border-radius: 3px; }
+  .dod-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .dod-list li { font-size: 13px; color: var(--text-muted); padding-left: 22px; position: relative; line-height: 1.5; }
+  .dod-list li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-family: var(--mono); font-size: 11px; }
+  footer { padding: 28px 0; font-family: var(--mono); font-size: 11px; color: var(--text-dim); border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <a class="back" href="index.html">← portfolio</a>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="breadcrumb-row">GoProtoz<span>›</span>Delivery Operations<span>›</span>Sprint Board</div>
+
+  <div class="ticket-meta">
+    <span class="ticket-id">GP-018</span>
+    <span class="ticket-badge badge-status">In Progress</span>
+  </div>
+
+  <h1>Sprint board auto-archive rule — close completed tickets from active board view after 7 days without blocking retrospective access</h1>
+
+  <div class="ticket-tags">
+    <span class="ticket-tag">Story</span>
+    <span class="ticket-tag">Medium priority</span>
+    <span class="ticket-tag">Sprint 11</span>
+    <span class="ticket-tag">Delivery Ops</span>
+    <span class="ticket-tag">Jira Config</span>
+    <span class="ticket-tag">5 pts</span>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Context</div>
+    <p>The active sprint board accumulates completed tickets over time as sprints close without a cleanup process. By Sprint 10, the board was showing 60+ tickets per sprint view, making it difficult for the team to quickly identify in-progress items and for the PM to spot tickets that had stalled. This added friction to daily tracking and made the board unusable as a real-time delivery view.</p>
+    <p>At the same time, completed tickets need to remain accessible for retrospectives, audit, and client reporting. A hard delete or archive that removes them from reporting is not acceptable.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-label">User Story</div>
+    <div class="story-block">
+      <em>As the Project Manager running a sprint,</em><br>
+      I want completed tickets to be automatically removed from the active board view 7 days after they are closed,<br>
+      <em>so that</em> the board only shows work that is active or recently closed, making it easier to track real-time delivery without losing access to historical ticket data for retrospectives and reporting.
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Acceptance Criteria</div>
+    <ul class="ac-list">
+      <li>Tickets with status "Done" are automatically moved out of the active sprint board view exactly 7 days after their resolution date. The 7-day window is configurable by the PM from the board settings without requiring admin access.</li>
+      <li>Archived tickets remain fully accessible in: (1) the completed sprint archive, (2) the backlog with their original sprint label intact, (3) all Jira reports including velocity charts and sprint reports. No data is deleted or hidden from reporting.</li>
+      <li>The board filter includes a visible "Show archived" toggle that any team member can use to surface archived tickets in the current board view temporarily, without requiring a separate search query.</li>
+      <li>When a ticket is auto-archived, no notification is sent to the assignee or reporter. The action is silent and reversible.</li>
+      <li>If a closed ticket is reopened within the 7-day window (e.g., due to a QA failure), it returns to the active board immediately and the 7-day clock resets from the new close date.</li>
+      <li>The PM receives a weekly digest (in the existing delivery report format) showing how many tickets were auto-archived in the past 7 days, with a link to the full list.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Edge Cases and Constraints</div>
+    <ul class="edge-list">
+      <li><strong>Sprint close with open tickets:</strong> If a sprint is closed with tickets still in progress, those tickets must not be auto-archived even if they age past 7 days. The 7-day rule applies only to tickets in "Done" status.</li>
+      <li><strong>Retrospective window:</strong> Auto-archive must not trigger before the sprint retrospective has been conducted. The sprint retro date is logged in the sprint description. If no retro date is recorded, the 7-day clock still applies but PM is notified before archiving.</li>
+      <li><strong>Jira plan dependency:</strong> Auto-archive behaviour depends on the Jira plan tier. If the current plan does not support automated status transitions at the required granularity, a manual admin rule using Jira Automation is the acceptable fallback. Delivery Lead to confirm plan capability before implementation begins.</li>
+      <li><strong>Bulk archive:</strong> If more than 20 tickets are due to be archived in a single automated run, the system flags this to the PM for manual review before proceeding. Prevents a misconfigured rule from silently clearing the board.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Technical Notes (for devs / Jira admin)</div>
+    <div class="tech-block">
+      Implementation via Jira Automation: create a scheduled rule that runs daily at 00:00 IST. Condition: <code>status = Done AND resolutiondate &lt;= -7d</code>. Action: transition ticket to a new "Archived" status and apply label <code>auto-archived</code>. The "Archived" status must be excluded from the default board filter via a JQL board filter update: <code>status not in ("Archived")</code>.<br><br>
+      The "Show archived" toggle on the board is a saved filter toggle — not a new component. Configure a secondary filter named "All including archived" and surface it as a board view option. No new UI development required.<br><br>
+      Weekly digest: use the existing Jira Automation email action. Trigger: scheduled weekly. Filter: <code>label = auto-archived AND updated &gt;= -7d</code>. Send to PM email only.
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Definition of Done</div>
+    <ul class="dod-list">
+      <li>Automation rule live in staging Jira environment and confirmed working on test tickets</li>
+      <li>Archived tickets confirmed visible in completed sprint report and backlog view</li>
+      <li>"Show archived" board toggle confirmed functional for all team members</li>
+      <li>Reopen edge case tested — ticket returns to active board immediately on reopen</li>
+      <li>Bulk archive threshold tested — PM notified correctly when threshold exceeded</li>
+      <li>Weekly digest email confirmed delivered to PM with correct ticket list</li>
+      <li>PM signed off after testing in staging before rule is promoted to production</li>
+    </ul>
+  </div>
+
+  <footer>
+    <span>written by kiran · project manager · gp-018 · goprotoz · delivery ops</span>
+    <a class="back" href="index.html">← portfolio</a>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RAID Log Sample · Kiran</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0e0f11; --surface: #15171a; --border: #242628;
+    --text: #e2e4e9; --text-muted: #6b7280; --text-dim: #3d4148;
+    --accent: #4f8ef7; --green: #34d399; --green-dim: rgba(52,211,153,0.1);
+    --amber: #fbbf24; --amber-dim: rgba(251,191,36,0.1);
+    --red: #f87171; --red-dim: rgba(248,113,113,0.1);
+    --mono: 'DM Mono', monospace; --sans: 'DM Sans', sans-serif;
+  }
+  body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 14px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+  header { border-bottom: 1px solid var(--border); padding: 18px 0; }
+  .back { font-family: var(--mono); font-size: 11px; color: var(--text-muted); display: flex; align-items: center; gap: 6px; transition: color 0.15s; }
+  .back:hover { color: var(--accent); }
+  .meta { padding: 48px 0 32px; border-bottom: 1px solid var(--border); }
+  .breadcrumb { font-family: var(--mono); font-size: 11px; color: var(--text-muted); margin-bottom: 14px; }
+  .breadcrumb span { color: var(--text-dim); margin: 0 6px; }
+  h1 { font-size: 22px; font-weight: 500; letter-spacing: -0.01em; margin-bottom: 10px; }
+  .desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; max-width: 560px; }
+  .tabs { display: flex; gap: 0; margin: 32px 0 20px; border: 1px solid var(--border); border-radius: 5px; overflow: hidden; width: fit-content; }
+  .tab { font-family: var(--mono); font-size: 11px; padding: 7px 14px; color: var(--text-muted); cursor: pointer; border-right: 1px solid var(--border); transition: background 0.1s, color 0.1s; }
+  .tab:last-child { border-right: none; }
+  .tab.active { background: var(--accent); color: #fff; }
+  .pane { display: none; }
+  .pane.active { display: block; }
+  .raid-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 40px; }
+  .raid-table th { font-family: var(--mono); font-size: 10px; color: var(--text-dim); letter-spacing: 0.06em; text-transform: uppercase; padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); background: var(--surface); }
+  .raid-table td { padding: 12px 12px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--text-muted); line-height: 1.5; }
+  .raid-table tr:hover td { background: var(--surface); }
+  .id-cell { font-family: var(--mono); font-size: 11px; color: var(--accent); white-space: nowrap; }
+  .status-pill { font-family: var(--mono); font-size: 10px; padding: 2px 7px; border-radius: 3px; white-space: nowrap; }
+  .status-open { background: var(--amber-dim); color: var(--amber); border: 1px solid rgba(251,191,36,0.2); }
+  .status-closed { background: var(--green-dim); color: var(--green); border: 1px solid rgba(52,211,153,0.2); }
+  .status-escalated { background: var(--red-dim); color: var(--red); border: 1px solid rgba(248,113,113,0.2); }
+  .status-monitoring { background: rgba(79,142,247,0.1); color: var(--accent); border: 1px solid rgba(79,142,247,0.2); }
+  .priority-high { color: var(--red); font-family: var(--mono); font-size: 10px; }
+  .priority-med { color: var(--amber); font-family: var(--mono); font-size: 10px; }
+  .priority-low { color: var(--text-dim); font-family: var(--mono); font-size: 10px; }
+  .note { font-family: var(--mono); font-size: 11px; color: var(--text-dim); margin-top: 24px; line-height: 1.6; border-left: 2px solid var(--border); padding-left: 14px; }
+  footer { padding: 32px 0; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); margin-top: 40px; }
+  .foot-note { font-family: var(--mono); font-size: 11px; color: var(--text-dim); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <a class="back" href="index.html">← portfolio</a>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="meta">
+    <div class="breadcrumb">Brandshark<span>›</span>Process Artifacts<span>›</span>RAID Log</div>
+    <h1>Live RAID Log — Sample</h1>
+    <p class="desc">Format used to track Risks, Issues, Assumptions, and Dependencies across 12-15 concurrent client projects. Each item is owned, dated, and reviewed weekly with department heads. Blockers are escalated before they impact timelines, not during standups.</p>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab('risks',this)">Risks</div>
+    <div class="tab" onclick="switchTab('issues',this)">Issues</div>
+    <div class="tab" onclick="switchTab('assumptions',this)">Assumptions</div>
+    <div class="tab" onclick="switchTab('dependencies',this)">Dependencies</div>
+  </div>
+
+  <!-- RISKS -->
+  <div class="pane active" id="pane-risks">
+    <table class="raid-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Project</th>
+          <th>Description</th>
+          <th>Priority</th>
+          <th>Owner</th>
+          <th>Mitigation</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="id-cell">R-014</td>
+          <td>BS-ClientA</td>
+          <td>Client stakeholder travelling from Week 3 — review sign-offs may be delayed, risking Sprint 7 closure</td>
+          <td><span class="priority-high">High</span></td>
+          <td>KP</td>
+          <td>Pre-scheduled async review via Loom + 48hr response window agreed in kickoff. Escalation to client lead if breached.</td>
+          <td><span class="status-pill status-monitoring">Monitoring</span></td>
+        </tr>
+        <tr>
+          <td class="id-cell">R-011</td>
+          <td>BS-ClientC</td>
+          <td>Developer resource shared with two other projects — capacity conflict likely in Sprint 9 if BS-ClientB delays</td>
+          <td><span class="priority-high">High</span></td>
+          <td>KP</td>
+          <td>Flagged to leadership in Week 6. Priority sequence confirmed: ClientC takes precedence. Buffer added to ClientB Sprint 9.</td>
+          <td><span class="status-pill status-closed">Closed</span></td>
+        </tr>
+        <tr>
+          <td class="id-cell">R-009</td>
+          <td>BS-ClientB</td>
+          <td>Third-party API dependency for e-commerce integration — vendor response SLA unknown, may block Sprint 8</td>
+          <td><span class="priority-med">Medium</span></td>
+          <td>Dev Lead</td>
+          <td>Mock API built in parallel. Vendor escalated by Dev Lead on Day 3. Worst case: mock goes live and real API patched post-launch.</td>
+          <td><span class="status-pill status-monitoring">Monitoring</span></td>
+        </tr>
+        <tr>
+          <td class="id-cell">R-007</td>
+          <td>BS-ClientD</td>
+          <td>Final copy not confirmed by client — placeholder content in designs may cause revision cycle at QA stage</td>
+          <td><span class="priority-med">Medium</span></td>
+          <td>Account Manager</td>
+          <td>Copy deadline set at Sprint 5 kickoff. Reminder sent Week 4. If unresolved by Sprint 5 Day 1, scope adjusted and client informed.</td>
+          <td><span class="status-pill status-open">Open</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="note">All risks reviewed weekly. High priority items escalated to department head if mitigation is not actioned within 48 hours of logging.</p>
+  </div>
+
+  <!-- ISSUES -->
+  <div class="pane" id="pane-issues">
+    <table class="raid-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Project</th>
+          <th>Description</th>
+          <th>Impact</th>
+          <th>Owner</th>
+          <th>Resolution</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="id-cell">I-022</td>
+          <td>BS-ClientA</td>
+          <td>Client requested redesign of homepage hero 3 days before Sprint 6 close — not in original scope</td>
+          <td><span class="priority-high">High</span></td>
+          <td>KP</td>
+          <td>Change request raised. Impact assessed: +2 days effort. Negotiated against lower-priority footer redesign. Delivery date held.</td>
+          <td><span class="status-pill status-closed">Closed</span></td>
+        </tr>
+        <tr>
+          <td class="id-cell">I-019</td>
+          <td>BS-ClientC</td>
+          <td>Design review stalled for 4 days — client point of contact on leave, no backup designated</td>
+          <td><span class="priority-high">High</span></td>
+          <td>KP</td>
+          <td>Escalated to client CEO on Day 4. Backup approver assigned within 24 hours. Review completed. No timeline impact.</td>
+          <td><span class="status-pill status-closed">Closed</span></td>
+        </tr>
+        <tr>
+          <td class="id-cell">I-018</td>
+          <td>BS-ClientB</td>
+          <td>Developer flagged ambiguity in interaction spec — three screens not buildable without clarification from design</td>
+          <td><span class="priority-med">Medium</span></td>
+          <td>Design Lead</td>
+          <td>Clarification session held same day. Annotations added to Figma. Build resumed within 6 hours of flag being raised.</td>
+          <td><span class="status-pill status-closed">Closed</span></td>
+        </tr>
+        <tr>
+          <td class="id-cell">I-025</td>
+          <td>BS-ClientD</td>
+          <td>QA found responsiveness issues on 6 screens that were not caught in design review — requires dev rework</td>
+          <td><span class="priority-med">Medium</span></td>
+          <td>Dev Lead</td>
+          <td>Root cause: mobile viewport not checked at design stage. Process updated — mobile check added to design review checklist going forward. Rework underway.</td>
+          <td><span class="status-pill status-open">Open</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="note">Issues are logged the day they surface, not at the next standup. Each issue has a resolution plan within 24 hours.</p>
+  </div>
+
+  <!-- ASSUMPTIONS -->
+  <div class="pane" id="pane-assumptions">
+    <table class="raid-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Project</th>
+          <th>Assumption</th>
+          <th>Owner</th>
+          <th>Risk if Wrong</th>
+          <th>Confirmed</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="id-cell">A-008</td>
+          <td>BS-ClientA</td>
+          <td>Client will provide brand guidelines and logo files by Sprint 1 Day 3</td>
+          <td>Account Manager</td>
+          <td>Design cannot begin. Sprint 1 delayed.</td>
+          <td><span class="status-pill status-closed">Yes — confirmed at kickoff</span></td>
+        </tr>
+        <tr>
+          <td class="id-cell">A-009</td>
+          <td>BS-ClientB</td>
+          <td>Client has access to their existing hosting environment and will manage deployment internally</td>
+          <td>Dev Lead</td>
+          <td>We absorb deployment scope unexpectedly — timeline and cost impact.</td>
+          <td><span class="status-pill status-monitoring">Pending — follow up week 2</span></td>
+        </tr>
+        <tr>
+          <td class="id-cell">A-011</td>
+          <td>BS-ClientC</td>
+          <td>All copy will be provided by the client in English — no translation required</td>
+          <td>KP</td>
+          <td>Translation adds unscoped effort and delays all content-dependent screens.</td>
+          <td><span class="status-pill status-closed">Yes — confirmed in brief</span></td>
+        </tr>
+        <tr>
+          <td class="id-cell">A-014</td>
+          <td>BS-ClientD</td>
+          <td>Review sign-off turnaround is 48 hours per sprint checkpoint</td>
+          <td>KP</td>
+          <td>Delays cascade across sprint — sign-off slots must shift and final delivery moves.</td>
+          <td><span class="status-pill status-open">Not yet confirmed — to raise at Sprint 3 kickoff</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="note">Unconfirmed assumptions are raised with clients at the earliest possible sprint checkpoint. They are never left as implicit.</p>
+  </div>
+
+  <!-- DEPENDENCIES -->
+  <div class="pane" id="pane-dependencies">
+    <table class="raid-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Project</th>
+          <th>Dependency</th>
+          <th>Dependent On</th>
+          <th>Due By</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="id-cell">D-006</td>
+          <td>BS-ClientA</td>
+          <td>Homepage build cannot begin until hero design is approved by client</td>
+          <td>Client sign-off</td>
+          <td>Sprint 6, Day 3</td>
+          <td><span class="status-pill status-closed">Resolved</span></td>
+        </tr>
+        <tr>
+          <td class="id-cell">D-007</td>
+          <td>BS-ClientB</td>
+          <td>E-commerce integration blocked until third-party vendor provides API credentials</td>
+          <td>External vendor</td>
+          <td>Sprint 8, Day 1</td>
+          <td><span class="status-pill status-escalated">Escalated</span></td>
+        </tr>
+        <tr>
+          <td class="id-cell">D-009</td>
+          <td>BS-ClientC</td>
+          <td>All interior page designs depend on typography and colour palette confirmed in Sprint 4</td>
+          <td>Design system sprint 4</td>
+          <td>Sprint 4, Day 5</td>
+          <td><span class="status-pill status-closed">Resolved</span></td>
+        </tr>
+        <tr>
+          <td class="id-cell">D-011</td>
+          <td>BS-ClientD</td>
+          <td>QA cannot begin until dev confirms staging environment is live and populated with dummy data</td>
+          <td>Dev Lead</td>
+          <td>Sprint 7, Day 2</td>
+          <td><span class="status-pill status-monitoring">Monitoring</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="note">Dependencies are mapped at sprint planning. Escalated items are flagged to leadership with a resolution plan the same day they are identified.</p>
+  </div>
+
+  <footer>
+    <div class="foot-note">process artifact · raid log · brandshark</div>
+    <a class="back" href="index.html">← back to portfolio</a>
+  </footer>
+
+</div>
+
+<script>
+  function switchTab(pane, el) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.pane').forEach(p => p.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('pane-' + pane).classList.add('active');
+  }
+</script>
+
+</body>
+</html>

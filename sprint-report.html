@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sprint 14 Status Report · Kiran</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0e0f11; --surface: #15171a; --border: #242628;
+    --text: #e2e4e9; --text-muted: #6b7280; --text-dim: #3d4148;
+    --accent: #4f8ef7; --green: #34d399; --green-dim: rgba(52,211,153,0.1);
+    --amber: #fbbf24; --amber-dim: rgba(251,191,36,0.1);
+    --red: #f87171; --red-dim: rgba(248,113,113,0.1);
+    --mono: 'DM Mono', monospace; --sans: 'DM Sans', sans-serif;
+  }
+  body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 14px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  .container { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+  header { border-bottom: 1px solid var(--border); padding: 18px 0; }
+  .back { font-family: var(--mono); font-size: 11px; color: var(--text-muted); display: flex; align-items: center; gap: 6px; transition: color 0.15s; }
+  .back:hover { color: var(--accent); }
+  .report-header { padding: 40px 0 28px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; }
+  .rh-left h1 { font-size: 20px; font-weight: 500; letter-spacing: -0.01em; margin-bottom: 6px; }
+  .rh-meta { font-family: var(--mono); font-size: 11px; color: var(--text-muted); }
+  .rh-meta span { color: var(--text-dim); margin: 0 6px; }
+  .overall-pill { font-family: var(--mono); font-size: 11px; padding: 5px 12px; border-radius: 4px; background: var(--green-dim); color: var(--green); border: 1px solid rgba(52,211,153,0.2); white-space: nowrap; }
+  .section { padding: 32px 0; border-bottom: 1px solid var(--border); }
+  .section:last-child { border-bottom: none; }
+  .section-label { font-family: var(--mono); font-size: 10px; color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 18px; }
+  .project-rows { display: flex; flex-direction: column; gap: 10px; }
+  .project-row { display: grid; grid-template-columns: 140px 1fr auto; gap: 14px; align-items: start; padding: 14px 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 5px; }
+  .project-name { font-size: 12px; color: var(--text); font-weight: 500; }
+  .project-status-text { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+  .progress-bar-wrap { margin-top: 6px; }
+  .progress-bar { height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 2px; }
+  .fill-green { background: var(--green); }
+  .fill-amber { background: var(--amber); }
+  .fill-red { background: var(--red); }
+  .pct { font-family: var(--mono); font-size: 10px; color: var(--text-muted); margin-top: 4px; }
+  .status-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 4px; flex-shrink: 0; }
+  .dot-green { background: var(--green); }
+  .dot-amber { background: var(--amber); }
+  .dot-red { background: var(--red); }
+  .velocity-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .vel-cell { padding: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 5px; }
+  .vel-num { font-family: var(--mono); font-size: 22px; font-weight: 500; color: var(--accent); margin-bottom: 4px; }
+  .vel-label { font-size: 11px; color: var(--text-muted); }
+  .item-list { display: flex; flex-direction: column; gap: 8px; }
+  .item-row { display: flex; align-items: start; gap: 12px; padding: 12px 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 5px; }
+  .item-tag { font-family: var(--mono); font-size: 10px; padding: 2px 7px; border-radius: 3px; white-space: nowrap; }
+  .tag-blocker { background: var(--red-dim); color: var(--red); border: 1px solid rgba(248,113,113,0.2); }
+  .tag-risk { background: var(--amber-dim); color: var(--amber); border: 1px solid rgba(251,191,36,0.2); }
+  .tag-decision { background: rgba(79,142,247,0.1); color: var(--accent); border: 1px solid rgba(79,142,247,0.2); }
+  .tag-carry { background: rgba(107,114,128,0.1); color: var(--text-muted); border: 1px solid rgba(107,114,128,0.2); }
+  .item-text { font-size: 12px; color: var(--text-muted); line-height: 1.5; flex: 1; }
+  .item-text strong { color: var(--text); font-weight: 500; display: block; margin-bottom: 2px; }
+  footer { padding: 32px 0; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); margin-top: 20px; }
+  .foot-note { font-family: var(--mono); font-size: 11px; color: var(--text-dim); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <a class="back" href="index.html">← portfolio</a>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="report-header">
+    <div class="rh-left">
+      <h1>Sprint 14 — Weekly Status Report</h1>
+      <div class="rh-meta">Brandshark<span>·</span>Week ending 28 March 2025<span>·</span>Prepared by Kiran Prasanth R</div>
+    </div>
+    <div class="overall-pill">On Track</div>
+  </div>
+
+  <!-- PROJECT STATUS -->
+  <div class="section">
+    <div class="section-label">Project Status</div>
+    <div class="project-rows">
+
+      <div class="project-row">
+        <div>
+          <div class="project-name">ClientA — Brand Identity</div>
+        </div>
+        <div>
+          <div class="project-status-text">Sprint 6 in progress. Homepage hero approved. Interior pages 70% complete. On track for Sprint 6 close Friday.</div>
+          <div class="progress-bar-wrap">
+            <div class="progress-bar"><div class="progress-fill fill-green" style="width:70%"></div></div>
+            <div class="pct">70% of Sprint 6 scope delivered</div>
+          </div>
+        </div>
+        <div class="status-dot dot-green"></div>
+      </div>
+
+      <div class="project-row">
+        <div>
+          <div class="project-name">ClientB — E-commerce Site</div>
+        </div>
+        <div>
+          <div class="project-status-text">Third-party API dependency blocking integration build. Mock API in place. Vendor escalated by Dev Lead — awaiting credentials. Sprint 8 start may shift by 2 days.</div>
+          <div class="progress-bar-wrap">
+            <div class="progress-bar"><div class="progress-fill fill-amber" style="width:55%"></div></div>
+            <div class="pct">55% of Sprint 7 scope delivered — at risk</div>
+          </div>
+        </div>
+        <div class="status-dot dot-amber"></div>
+      </div>
+
+      <div class="project-row">
+        <div>
+          <div class="project-name">ClientC — Website Redesign</div>
+        </div>
+        <div>
+          <div class="project-status-text">All Sprint 5 deliverables completed and signed off. Sprint 6 planning confirmed for Monday. Ahead of schedule by 1 day.</div>
+          <div class="progress-bar-wrap">
+            <div class="progress-bar"><div class="progress-fill fill-green" style="width:100%"></div></div>
+            <div class="pct">100% of Sprint 5 scope delivered</div>
+          </div>
+        </div>
+        <div class="status-dot dot-green"></div>
+      </div>
+
+      <div class="project-row">
+        <div>
+          <div class="project-name">ClientD — Marketing Collateral</div>
+        </div>
+        <div>
+          <div class="project-status-text">QA flagged responsiveness issues on 6 screens. Dev rework in progress. Copy deadline still unconfirmed — follow-up with account manager required.</div>
+          <div class="progress-bar-wrap">
+            <div class="progress-bar"><div class="progress-fill fill-red" style="width:40%"></div></div>
+            <div class="pct">40% of Sprint 7 scope delivered — blocked</div>
+          </div>
+        </div>
+        <div class="status-dot dot-red"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- VELOCITY -->
+  <div class="section">
+    <div class="section-label">Sprint Velocity and Delivery Metrics</div>
+    <div class="velocity-grid">
+      <div class="vel-cell">
+        <div class="vel-num">38</div>
+        <div class="vel-label">Story points closed this sprint</div>
+      </div>
+      <div class="vel-cell">
+        <div class="vel-num">42</div>
+        <div class="vel-label">Story points committed at sprint start</div>
+      </div>
+      <div class="vel-cell">
+        <div class="vel-num">90%</div>
+        <div class="vel-label">Commitment close rate (sprint average: 91%)</div>
+      </div>
+      <div class="vel-cell">
+        <div class="vel-num">4</div>
+        <div class="vel-label">Carry-over tickets (reasons documented below)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCKERS, RISKS, DECISIONS -->
+  <div class="section">
+    <div class="section-label">Blockers, Risks, and Decisions Required</div>
+    <div class="item-list">
+
+      <div class="item-row">
+        <span class="item-tag tag-blocker">Blocker</span>
+        <div class="item-text">
+          <strong>ClientB — API credentials not received from vendor</strong>
+          Integration build blocked. Mock API live. If vendor does not respond by Tuesday, sprint timeline shifts by 2 days. Dev Lead to escalate directly to vendor account manager Monday morning.
+        </div>
+      </div>
+
+      <div class="item-row">
+        <span class="item-tag tag-risk">Risk</span>
+        <div class="item-text">
+          <strong>ClientD — Copy deadline unconfirmed</strong>
+          If copy is not received by Sprint 8 Day 1, all content-dependent screens move to Sprint 9 and the final delivery date shifts. Account Manager to confirm with client by end of day Monday.
+        </div>
+      </div>
+
+      <div class="item-row">
+        <span class="item-tag tag-decision">Decision Needed</span>
+        <div class="item-text">
+          <strong>ClientB — Sprint 8 start date</strong>
+          Leadership decision required by Wednesday: hold Sprint 8 start and wait for vendor, or begin Sprint 8 non-integration tracks in parallel. Recommend parallel start to protect delivery date.
+        </div>
+      </div>
+
+      <div class="item-row">
+        <span class="item-tag tag-carry">Carry-over</span>
+        <div class="item-text">
+          <strong>ClientD — 4 screens carried to Sprint 8</strong>
+          Responsiveness rework took longer than estimated. Root cause: mobile viewport not in design review checklist. Process updated for Sprint 8. No timeline impact — buffer absorbed.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- NEXT SPRINT -->
+  <div class="section">
+    <div class="section-label">Sprint 15 Plan</div>
+    <div class="item-list">
+      <div class="item-row">
+        <span class="item-tag" style="background:rgba(79,142,247,0.1);color:var(--accent);border:1px solid rgba(79,142,247,0.2);">ClientA</span>
+        <div class="item-text">Complete interior pages, run client review, begin QA on approved screens.</div>
+      </div>
+      <div class="item-row">
+        <span class="item-tag" style="background:rgba(79,142,247,0.1);color:var(--accent);border:1px solid rgba(79,142,247,0.2);">ClientB</span>
+        <div class="item-text">Begin Sprint 8 non-integration tracks. Integration build proceeds as soon as API credentials received.</div>
+      </div>
+      <div class="item-row">
+        <span class="item-tag" style="background:rgba(79,142,247,0.1);color:var(--accent);border:1px solid rgba(79,142,247,0.2);">ClientC</span>
+        <div class="item-text">Sprint 6: full site development begins. Design signed off in full.</div>
+      </div>
+      <div class="item-row">
+        <span class="item-tag" style="background:rgba(79,142,247,0.1);color:var(--accent);border:1px solid rgba(79,142,247,0.2);">ClientD</span>
+        <div class="item-text">Complete responsiveness rework. QA sign-off on all fixed screens. Await copy to unblock content screens.</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="foot-note">process artifact · sprint 14 status report · brandshark</div>
+    <a class="back" href="index.html">← back to portfolio</a>
+  </footer>
+
+</div>
+</body>
+</html>

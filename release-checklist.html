@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Release Readiness Checklist · Kiran</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0e0f11; --surface: #15171a; --border: #242628;
+    --text: #e2e4e9; --text-muted: #6b7280; --text-dim: #3d4148;
+    --accent: #4f8ef7; --green: #34d399; --green-dim: rgba(52,211,153,0.1);
+    --amber: #fbbf24; --amber-dim: rgba(251,191,36,0.1);
+    --red: #f87171; --red-dim: rgba(248,113,113,0.1);
+    --mono: 'DM Mono', monospace; --sans: 'DM Sans', sans-serif;
+  }
+  body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 14px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  .container { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+  header { border-bottom: 1px solid var(--border); padding: 18px 0; }
+  .back { font-family: var(--mono); font-size: 11px; color: var(--text-muted); display: flex; align-items: center; gap: 6px; transition: color 0.15s; }
+  .back:hover { color: var(--accent); }
+  .meta { padding: 40px 0 28px; border-bottom: 1px solid var(--border); }
+  .breadcrumb { font-family: var(--mono); font-size: 11px; color: var(--text-muted); margin-bottom: 14px; }
+  .breadcrumb span { color: var(--text-dim); margin: 0 6px; }
+  h1 { font-size: 20px; font-weight: 500; letter-spacing: -0.01em; margin-bottom: 8px; }
+  .desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-top: 10px; max-width: 520px; }
+  .section { padding: 32px 0; border-bottom: 1px solid var(--border); }
+  .section:last-child { border-bottom: none; }
+  .section-label { font-family: var(--mono); font-size: 10px; color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 18px; }
+  .checklist { display: flex; flex-direction: column; gap: 6px; }
+  .check-item { display: grid; grid-template-columns: 24px 1fr auto; gap: 12px; align-items: start; padding: 12px 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 5px; }
+  .check-box { width: 18px; height: 18px; border: 1px solid var(--border); border-radius: 3px; margin-top: 1px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .check-box.done { background: var(--green-dim); border-color: rgba(52,211,153,0.3); }
+  .check-box.done::after { content: '✓'; color: var(--green); font-size: 10px; font-family: var(--mono); }
+  .check-box.na { background: var(--border); }
+  .check-box.na::after { content: '—'; color: var(--text-dim); font-size: 10px; font-family: var(--mono); }
+  .check-text { font-size: 12px; color: var(--text); line-height: 1.5; }
+  .check-text .sub { display: block; font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+  .check-owner { font-family: var(--mono); font-size: 10px; color: var(--text-muted); white-space: nowrap; padding-top: 2px; }
+  .rollback-box { background: var(--surface); border: 1px solid var(--border); border-radius: 5px; padding: 20px; }
+  .rb-row { display: grid; grid-template-columns: 150px 1fr; gap: 14px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .rb-row:last-child { border-bottom: none; }
+  .rb-trigger { font-family: var(--mono); font-size: 11px; color: var(--amber); }
+  .rb-action { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+  footer { padding: 32px 0; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); margin-top: 20px; }
+  .foot-note { font-family: var(--mono); font-size: 11px; color: var(--text-dim); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <a class="back" href="index.html">← portfolio</a>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="meta">
+    <div class="breadcrumb">GoProtoz<span>›</span>Process Artifacts<span>›</span>Release Checklist</div>
+    <h1>Release Readiness Checklist</h1>
+    <p class="desc">Pre-release gate used to coordinate sign-off from engineering, QA, and design before any client-facing release. Every item must be confirmed before a release is approved. One unchecked item is enough to hold the release.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Design and QA Sign-Off</div>
+    <div class="checklist">
+      <div class="check-item">
+        <div class="check-box done"></div>
+        <div class="check-text">All screens signed off by client against acceptance criteria defined at kickoff.<span class="sub">Sign-off documented in email or Notion. Verbal confirmation alone does not count.</span></div>
+        <div class="check-owner">PM</div>
+      </div>
+      <div class="check-item">
+        <div class="check-box done"></div>
+        <div class="check-text">QA sign-off complete on all screens included in this release.<span class="sub">QA engineer confirms all test cases passed. Failed cases documented with disposition (fixed or accepted risk).</span></div>
+        <div class="check-owner">QA Lead</div>
+      </div>
+      <div class="check-item">
+        <div class="check-box done"></div>
+        <div class="check-text">All screens verified at mobile viewport (360px and above).<span class="sub">Mobile QA completed as part of standard QA cycle, not as a final afterthought.</span></div>
+        <div class="check-owner">QA Lead</div>
+      </div>
+      <div class="check-item">
+        <div class="check-box done"></div>
+        <div class="check-text">Design-to-dev handoff package complete and confirmed by dev lead.<span class="sub">Annotated Figma, component specs, interaction notes, and edge case documentation in place.</span></div>
+        <div class="check-owner">Design Lead</div>
+      </div>
+      <div class="check-item">
+        <div class="check-box done"></div>
+        <div class="check-text">All open RAID items reviewed. No unresolved blockers.<span class="sub">RAID log reviewed by PM. Any open items formally accepted or escalated before release proceeds.</span></div>
+        <div class="check-owner">PM</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Engineering and Deployment</div>
+    <div class="checklist">
+      <div class="check-item">
+        <div class="check-box done"></div>
+        <div class="check-text">Release branch confirmed and reviewed by dev lead.<span class="sub">No uncommitted changes in the release branch. Merge confirmed from staging.</span></div>
+        <div class="check-owner">Dev Lead</div>
+      </div>
+      <div class="check-item">
+        <div class="check-box done"></div>
+        <div class="check-text">Staging environment matches production config.<span class="sub">Environment-specific variables verified. No hardcoded staging values in release build.</span></div>
+        <div class="check-owner">Dev Lead</div>
+      </div>
+      <div class="check-item">
+        <div class="check-box done"></div>
+        <div class="check-text">Rollback plan confirmed and documented before deployment begins.<span class="sub">Rollback steps written out. Dev lead and PM both understand the trigger conditions.</span></div>
+        <div class="check-owner">Dev Lead / PM</div>
+      </div>
+      <div class="check-item">
+        <div class="check-box na"></div>
+        <div class="check-text">Third-party integrations tested end-to-end in staging.<span class="sub">Not applicable if no integrations in this release scope.</span></div>
+        <div class="check-owner">Dev Lead</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Communications</div>
+    <div class="checklist">
+      <div class="check-item">
+        <div class="check-box done"></div>
+        <div class="check-text">Client informed of release date and expected downtime (if any) at least 48 hours before.<span class="sub">Release communication sent by PM. Client confirms receipt.</span></div>
+        <div class="check-owner">PM</div>
+      </div>
+      <div class="check-item">
+        <div class="check-box done"></div>
+        <div class="check-text">Internal teams (Sales, Customer Success where applicable) briefed on what is shipping.<span class="sub">Release summary document shared. Covers what is in, what moved out, and why.</span></div>
+        <div class="check-owner">PM</div>
+      </div>
+      <div class="check-item">
+        <div class="check-box done"></div>
+        <div class="check-text">Release record updated with what shipped, what moved out, and reasons for any changes.<span class="sub">Maintained in Notion. Permanent record for audit and client reference.</span></div>
+        <div class="check-owner">PM</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Rollback Conditions</div>
+    <div class="rollback-box">
+      <div class="rb-row">
+        <div class="rb-trigger">Critical bug post-deploy</div>
+        <div class="rb-action">Dev lead initiates rollback immediately. PM informs client within 30 minutes with a status note and ETA for fix. No waiting for the next standup.</div>
+      </div>
+      <div class="rb-row">
+        <div class="rb-trigger">Integration failure</div>
+        <div class="rb-action">Third-party integration disabled at feature flag level. Rest of release stays live. Fix tracked as a hotfix sprint item with 24-hour resolution target.</div>
+      </div>
+      <div class="rb-row">
+        <div class="rb-trigger">Client requests halt</div>
+        <div class="rb-action">Rollback initiated within 1 hour of client request. Root cause documented before re-release. PM leads post-mortem within 48 hours.</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="foot-note">process artifact · release readiness checklist · goprotoz</div>
+    <a class="back" href="index.html">← back to portfolio</a>
+  </footer>
+
+</div>
+</body>
+</html>

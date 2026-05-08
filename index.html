@@ -3,412 +3,613 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PM Work Samples · Kiran Prasanth R</title>
+<title>Kiran Prasanth R · Project Manager</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg: #FAFAF8;
-    --surface: #F2F1EE;
-    --border: rgba(0,0,0,0.10);
-    --text: #1A1A18;
-    --text-2: #5A5954;
-    --text-3: #999890;
-    --amber: #BA7517;
-    --amber-bg: #FAEEDA; --amber-text: #633806; --amber-border: #EF9F27;
-    --blue-bg: #E6F1FB; --blue-text: #0C447C; --blue-border: #378ADD;
-    --purple-bg: #EEEDFE; --purple-text: #3C3489; --purple-border: #7F77DD;
-    --green-bg: #EAF3DE; --green-text: #27500A; --green-border: #639922;
-    --teal: #1D9E75; --teal-bg: #E1F5EE;
+    --bg: #0e0f11;
+    --surface: #15171a;
+    --border: #242628;
+    --border-light: #1e2022;
+    --text: #e2e4e9;
+    --text-muted: #6b7280;
+    --text-dim: #3d4148;
+    --accent: #4f8ef7;
+    --accent-dim: rgba(79,142,247,0.12);
+    --accent-border: rgba(79,142,247,0.25);
+    --green: #34d399;
+    --green-dim: rgba(52,211,153,0.1);
+    --amber: #fbbf24;
+    --amber-dim: rgba(251,191,36,0.1);
+    --mono: 'DM Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
   }
 
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #171715; --surface: #212120;
-      --border: rgba(255,255,255,0.10);
-      --text: #F0EFE8; --text-2: #A8A79F; --text-3: #666660;
-      --amber: #EF9F27;
-      --amber-bg: #412402; --amber-text: #FAC775; --amber-border: #854F0B;
-      --blue-bg: #042C53; --blue-text: #85B7EB; --blue-border: #185FA5;
-      --purple-bg: #26215C; --purple-text: #AFA9EC; --purple-border: #534AB7;
-      --green-bg: #173404; --green-text: #C0DD97; --green-border: #3B6D11;
-      --teal: #5DCAA5; --teal-bg: #04342C;
-    }
-  }
+  html { scroll-behavior: smooth; }
 
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: 'DM Mono', monospace;
+    font-family: var(--sans);
     font-size: 14px;
     line-height: 1.6;
-    padding: 0;
+    -webkit-font-smoothing: antialiased;
   }
 
-  .hero {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 4rem 2rem 3rem;
-    border-bottom: 0.5px solid var(--border);
-  }
+  a { color: inherit; text-decoration: none; }
 
-  .eyebrow {
+  /* LAYOUT */
+  .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+
+  /* HEADER */
+  header {
+    border-bottom: 1px solid var(--border);
+    padding: 18px 0;
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(14,15,17,0.92);
+    backdrop-filter: blur(12px);
+  }
+  header .inner {
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .logo {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+  }
+  .logo span { color: var(--accent); }
+  nav { display: flex; gap: 24px; }
+  nav a {
+    font-family: var(--mono);
     font-size: 11px;
-    letter-spacing: 0.10em;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: var(--text-3);
-    margin-bottom: 1.25rem;
+    transition: color 0.15s;
   }
+  nav a:hover { color: var(--text); }
 
-  h1 {
-    font-family: 'Fraunces', serif;
-    font-size: 38px;
-    font-weight: 500;
-    line-height: 1.15;
-    letter-spacing: -0.025em;
-    margin-bottom: 1.25rem;
+  /* HERO */
+  .hero {
+    padding: 80px 0 64px;
+    border-bottom: 1px solid var(--border);
   }
-  h1 span { color: var(--text-3); }
-
-  .hero-body {
-    font-size: 13.5px;
-    line-height: 1.8;
-    color: var(--text-2);
-    max-width: 560px;
-    margin-bottom: 2rem;
-  }
-
-  .meta-pills {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  .pill {
+  .hero-tag {
+    font-family: var(--mono);
     font-size: 11px;
-    padding: 3px 11px;
-    border-radius: 4px;
-    border: 0.5px solid var(--border);
-    background: var(--surface);
-    color: var(--text-2);
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .hero-tag::before {
+    content: '';
+    width: 20px; height: 1px;
+    background: var(--accent);
+    display: inline-block;
+  }
+  h1 {
+    font-family: var(--sans);
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 300;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 20px;
+  }
+  h1 strong { font-weight: 600; }
+  .hero-sub {
+    font-size: 15px;
+    color: var(--text-muted);
+    max-width: 520px;
+    line-height: 1.65;
+    margin-bottom: 36px;
+  }
+  .hero-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    padding: 4px 10px;
+    border-radius: 3px;
     letter-spacing: 0.03em;
   }
 
-  .tickets-section {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 3rem 2rem 5rem;
+  /* METRICS */
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-bottom: 1px solid var(--border);
   }
+  .metric {
+    padding: 32px 0;
+    border-right: 1px solid var(--border);
+  }
+  .metric:last-child { border-right: none; }
+  .metric-num {
+    font-family: var(--mono);
+    font-size: 30px;
+    font-weight: 500;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .metric-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+  .metrics .metric { padding-left: 0; }
+  .metrics .metric + .metric { padding-left: 32px; }
+
+  /* SECTIONS */
+  section { padding: 64px 0; border-bottom: 1px solid var(--border); }
+  section:last-child { border-bottom: none; }
 
   .section-label {
-    font-size: 10px;
-    letter-spacing: 0.10em;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--text-3);
-    margin-bottom: 1.25rem;
+    margin-bottom: 32px;
   }
 
-  .ticket-card {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-    background: var(--bg);
-    border: 0.5px solid var(--border);
-    border-radius: 10px;
-    padding: 1.5rem 1.75rem;
-    margin-bottom: 1rem;
-    transition: border-color 0.15s, background 0.15s;
-    position: relative;
-  }
-  .ticket-card:hover {
-    border-color: rgba(0,0,0,0.22);
-    background: var(--surface);
-  }
-  @media (prefers-color-scheme: dark) {
-    .ticket-card:hover { border-color: rgba(255,255,255,0.22); }
-  }
-
-  .card-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 0.75rem;
-  }
-
-  .card-meta {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .ticket-id-badge {
-    font-size: 11px;
-    padding: 2px 9px;
-    border-radius: 4px;
-    border: 0.5px solid var(--border);
-    background: var(--surface);
-    color: var(--text-3);
-    letter-spacing: 0.04em;
-  }
-
-  .tag {
-    font-size: 11px;
-    padding: 2px 9px;
-    border-radius: 4px;
-    border: 0.5px solid;
-    letter-spacing: 0.03em;
-  }
-  .t-blue { background: var(--blue-bg); color: var(--blue-text); border-color: var(--blue-border); }
-  .t-purple { background: var(--purple-bg); color: var(--purple-text); border-color: var(--purple-border); }
-  .t-green { background: var(--green-bg); color: var(--green-text); border-color: var(--green-border); }
-  .t-amber { background: var(--amber-bg); color: var(--amber-text); border-color: var(--amber-border); }
-  .t-surface { background: var(--surface); color: var(--text-2); border-color: var(--border); }
-
-  .arrow {
-    font-size: 16px;
-    color: var(--text-3);
-    transition: transform 0.15s, color 0.15s;
-  }
-  .ticket-card:hover .arrow {
-    transform: translate(3px, -3px);
-    color: var(--text-2);
-  }
-
-  .card-title {
-    font-family: 'Fraunces', serif;
-    font-size: 17px;
+  h2 {
+    font-size: 20px;
     font-weight: 500;
-    line-height: 1.35;
     letter-spacing: -0.01em;
     color: var(--text);
-    margin-bottom: 0.6rem;
+    margin-bottom: 8px;
   }
 
-  .card-desc {
-    font-size: 12.5px;
-    line-height: 1.7;
-    color: var(--text-2);
-    max-width: 580px;
+  /* CASE STUDIES */
+  .case-grid { display: flex; flex-direction: column; gap: 2px; }
+  .case-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 28px 28px 24px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 16px;
+    align-items: start;
+    transition: border-color 0.15s;
+    cursor: pointer;
+    text-decoration: none;
   }
-
-  .card-footer {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 1rem;
-    padding-top: 0.85rem;
-    border-top: 0.5px solid var(--border);
-    flex-wrap: wrap;
+  .case-card:hover { border-color: var(--accent-border); }
+  .case-card + .case-card { margin-top: 10px; }
+  .case-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
   }
+  .case-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.4;
+    margin-bottom: 10px;
+  }
+  .case-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 14px;
+  }
+  .case-outcomes { display: flex; flex-wrap: wrap; gap: 8px; }
+  .outcome-pill {
+    font-family: var(--mono);
+    font-size: 10px;
+    background: var(--green-dim);
+    color: var(--green);
+    border: 1px solid rgba(52,211,153,0.2);
+    padding: 3px 8px;
+    border-radius: 3px;
+  }
+  .case-arrow {
+    font-size: 16px;
+    color: var(--text-dim);
+    margin-top: 2px;
+    transition: color 0.15s, transform 0.15s;
+  }
+  .case-card:hover .case-arrow { color: var(--accent); transform: translate(2px,-2px); }
 
-  .role-badge {
-    display: flex;
-    align-items: center;
-    gap: 6px;
+  /* WORK SAMPLES */
+  .samples-nav { display: flex; gap: 0; margin-bottom: 24px; border: 1px solid var(--border); border-radius: 5px; overflow: hidden; width: fit-content; }
+  .sample-tab {
+    font-family: var(--mono);
     font-size: 11px;
-    color: var(--text-3);
-    letter-spacing: 0.02em;
-  }
-  .role-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  .complexity-bar {
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 11px;
-    color: var(--text-3);
-  }
-  .bar-dots { display: flex; gap: 3px; }
-  .bar-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--border);
-  }
-  .bar-dot.filled { background: var(--text-3); }
-
-  .divider {
-    color: var(--text-3);
-    font-size: 11px;
-  }
-
-  footer {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 0 2rem 3rem;
-    font-size: 11px;
-    color: var(--text-3);
+    padding: 7px 14px;
+    color: var(--text-muted);
+    cursor: pointer;
     letter-spacing: 0.04em;
-    border-top: 0.5px solid var(--border);
-    padding-top: 1.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 8px;
+    border-right: 1px solid var(--border);
+    transition: background 0.1s, color 0.1s;
   }
+  .sample-tab:last-child { border-right: none; }
+  .sample-tab.active { background: var(--accent); color: #fff; }
+
+  .sample-pane { display: none; }
+  .sample-pane.active { display: flex; flex-direction: column; gap: 2px; }
+
+  .sample-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    text-decoration: none;
+    transition: border-color 0.15s;
+    margin-bottom: 8px;
+  }
+  .sample-row:hover { border-color: var(--accent-border); }
+  .sample-id {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    min-width: 72px;
+    letter-spacing: 0.04em;
+  }
+  .sample-type {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-muted);
+    background: var(--border-light);
+    padding: 2px 7px;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+  .sample-title {
+    font-size: 13px;
+    color: var(--text);
+    flex: 1;
+    line-height: 1.4;
+  }
+  .sample-pts {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    white-space: nowrap;
+  }
+  .sample-tags {
+    display: flex; gap: 6px; flex-wrap: wrap;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-muted);
+  }
+
+  /* ARTIFACT ROWS */
+  .artifact-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    text-decoration: none;
+    transition: border-color 0.15s;
+    margin-bottom: 8px;
+  }
+  .artifact-row:hover { border-color: var(--accent-border); }
+  .artifact-icon {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--amber);
+    min-width: 72px;
+  }
+  .artifact-title {
+    font-size: 13px;
+    color: var(--text);
+    flex: 1;
+  }
+  .artifact-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  /* TOOLS */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .tool-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 16px 18px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+  }
+  .tool-cat {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .tool-list {
+    font-size: 12px;
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 32px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  footer .left {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+  }
+  footer .links {
+    display: flex; gap: 20px;
+  }
+  footer .links a {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    transition: color 0.15s;
+  }
+  footer .links a:hover { color: var(--accent); }
 
   @media (max-width: 600px) {
-    h1 { font-size: 28px; }
-    .hero { padding: 3rem 1.25rem 2rem; }
-    .tickets-section { padding: 2rem 1.25rem 4rem; }
-    footer { padding: 1.5rem 1.25rem 3rem; }
-    .card-top { flex-wrap: wrap; gap: 8px; }
+    .metrics { grid-template-columns: 1fr 1fr; }
+    .metrics .metric:last-child { grid-column: span 2; border-right: none; }
+    .tools-grid { grid-template-columns: 1fr; }
+    nav { gap: 14px; }
+    .case-card { grid-template-columns: 1fr; }
+    .case-arrow { display: none; }
   }
 </style>
 </head>
 <body>
 
-<div class="hero">
-  <p class="eyebrow">PM Work Samples</p>
-  <h1>Kiran Prasanth R<br><span>Project / Delivery Manager</span></h1>
-  <p class="hero-body">
-    A curated set of tickets and user stories written across product and delivery roles. Each ticket is written to be developer-ready — precise acceptance criteria, explicit edge cases, clear technical context, and a definition of done that a QA engineer can test without follow-up questions.
-  </p>
-  <div class="meta-pills">
-    <span class="pill">3.3 yrs experience</span>
-    <span class="pill">Logistics SaaS · Design Studio</span>
-    <span class="pill">Agile / Scrum</span>
-    <span class="pill">Requirements · Delivery · QA</span>
+<header>
+  <div class="container">
+    <div class="inner">
+      <div class="logo">kiran<span>.</span>pm</div>
+      <nav>
+        <a href="#case-studies">Case Studies</a>
+        <a href="#work-samples">Work Samples</a>
+        <a href="#artifacts">Artifacts</a>
+        <a href="mailto:kiranprasanth01@gmail.com">Contact</a>
+      </nav>
+    </div>
   </div>
+</header>
+
+<div class="container">
+
+  <!-- HERO -->
+  <section class="hero" style="border-bottom: none; padding-bottom: 40px;">
+    <div class="hero-tag">Open to opportunities · Bengaluru</div>
+    <h1><strong>Kiran Prasanth R</strong><br>Project Manager &amp; Scrum Master</h1>
+    <p class="hero-sub">
+      3+ years owning end-to-end delivery across concurrent engineering, SaaS, and design engagements. Sprint cycles, RAID logs, stakeholder governance, and delivery that closes on time.
+    </p>
+    <div class="hero-chips">
+      <span class="chip">Agile / Scrum</span>
+      <span class="chip">Jira Board Ownership</span>
+      <span class="chip">Sprint Ceremonies</span>
+      <span class="chip">RAID Management</span>
+      <span class="chip">Stakeholder Reporting</span>
+      <span class="chip">Release Management</span>
+      <span class="chip">ITIL Alignment</span>
+    </div>
+  </section>
+
+  <!-- METRICS -->
+  <div class="metrics">
+    <div class="metric">
+      <div class="metric-num">95%</div>
+      <div class="metric-label">On-time delivery across 25+ concurrent projects</div>
+    </div>
+    <div class="metric">
+      <div class="metric-num">3+ yrs</div>
+      <div class="metric-label">Delivery across logistics SaaS, design studio, BFSI</div>
+    </div>
+    <div class="metric">
+      <div class="metric-num">100%</div>
+      <div class="metric-label">On-time delivery on all enterprise client engagements at GoProtoz</div>
+    </div>
+  </div>
+
+  <!-- CASE STUDIES -->
+  <section id="case-studies">
+    <div class="section-label">01 — Case Studies</div>
+    <div class="case-grid">
+
+      <a class="case-card" href="case-study-nbfc.html">
+        <div>
+          <div class="case-tag">GoProtoz · BFSI · UX + Delivery</div>
+          <div class="case-title">50+ screen loan application rebuild for a leading NBFC</div>
+          <div class="case-desc">End-to-end delivery from discovery through QA handoff. Coordinated research, design, and engineering across two sprint tracks. Identified and eliminated a redundant disbursement step in the user flow.</div>
+          <div class="case-outcomes">
+            <span class="outcome-pill">15% reduction in loan-completion time</span>
+            <span class="outcome-pill">100% on-time delivery</span>
+            <span class="outcome-pill">Redundant step eliminated mid-sprint</span>
+          </div>
+        </div>
+        <div class="case-arrow">↗</div>
+      </a>
+
+      <a class="case-card" href="case-study-brandshark.html">
+        <div>
+          <div class="case-tag">Brandshark · Agency Delivery · Process</div>
+          <div class="case-title">Delivery ops overhaul across a 12-member design and development studio</div>
+          <div class="case-desc">Inherited fragmented delivery across 12-15 concurrent client projects with no shared process. Built the sprint structure, RAID governance, SOP framework, and status reporting system from scratch — adopted across the full team.</div>
+          <div class="case-outcomes">
+            <span class="outcome-pill">4 SOPs built and adopted</span>
+            <span class="outcome-pill">2-4 weeks delivery time protected per engagement</span>
+            <span class="outcome-pill">95% on-time across all active projects</span>
+          </div>
+        </div>
+        <div class="case-arrow">↗</div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- WORK SAMPLES -->
+  <section id="work-samples">
+    <div class="section-label">02 — Work Samples</div>
+
+    <div class="samples-nav">
+      <div class="sample-tab active" onclick="switchTab('tickets', this)">Jira Tickets</div>
+      <div class="sample-tab" onclick="switchTab('scrum', this)">Scrum Artifacts</div>
+    </div>
+
+    <!-- TICKETS -->
+    <div class="sample-pane active" id="pane-tickets">
+
+      <a class="sample-row" href="lt-2047.html">
+        <span class="sample-id">LT-2047</span>
+        <span class="sample-type">Feature · 5 pts</span>
+        <span class="sample-title">Real-time delay alerts for fleet managers when shipment ETAs shift beyond threshold</span>
+        <span class="sample-pts">Trinetra · Notifications</span>
+      </a>
+
+      <a class="sample-row" href="bs-114.html">
+        <span class="sample-id">BS-114</span>
+        <span class="sample-type">Feature · 8 pts</span>
+        <span class="sample-title">Self-service brand asset portal so clients can access approved files without raising a studio request</span>
+        <span class="sample-pts">Brandshark · Web Dev</span>
+      </a>
+
+      <a class="sample-row" href="bs-089.html">
+        <span class="sample-id">BS-089</span>
+        <span class="sample-type">Epic · 13 pts</span>
+        <span class="sample-title">Automated design token sync pipeline — push Figma variable changes to client codebase via PR</span>
+        <span class="sample-pts">Brandshark · Integrations</span>
+      </a>
+
+      <a class="sample-row" href="cr-031.html">
+        <span class="sample-id">CR-031</span>
+        <span class="sample-type">Feature · 10 pts</span>
+        <span class="sample-title">AI-powered content brief generator — analyse top-ranking SERP results and output a structured brief</span>
+        <span class="sample-pts">CometRank · AI / SaaS</span>
+      </a>
+
+      <a class="sample-row" href="gp-018.html">
+        <span class="sample-id">GP-018</span>
+        <span class="sample-type">Story · 5 pts</span>
+        <span class="sample-title">Sprint board auto-archive rule — close completed tickets from active board view after 7 days without blocking retrospective access</span>
+        <span class="sample-pts">GoProtoz · Delivery Ops</span>
+      </a>
+
+    </div>
+
+    <!-- SCRUM -->
+    <div class="sample-pane" id="pane-scrum">
+
+      <a class="sample-row" href="sprint-report.html">
+        <span class="sample-id" style="color:var(--amber)">RPT</span>
+        <span class="sample-type">Sprint Report</span>
+        <span class="sample-title">Sprint 14 status report — delivery summary, velocity, open blockers, and carry-over items</span>
+        <span class="sample-pts">Brandshark</span>
+      </a>
+
+      <a class="sample-row" href="retro-s12.html">
+        <span class="sample-id" style="color:var(--amber)">RETRO</span>
+        <span class="sample-type">Retrospective</span>
+        <span class="sample-title">Sprint 12 retrospective output — what shipped, what slipped, three process changes adopted</span>
+        <span class="sample-pts">GoProtoz</span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- PROCESS ARTIFACTS -->
+  <section id="artifacts">
+    <div class="section-label">03 — Process Artifacts</div>
+
+    <a class="artifact-row" href="raid-log.html">
+      <span class="artifact-icon">RAID</span>
+      <div>
+        <div class="artifact-title">Live RAID Log — Risks, Issues, Assumptions, Dependencies</div>
+        <div class="artifact-desc">Sample RAID log format used across 12-15 concurrent client projects at Brandshark. Shows how blockers were logged, owned, escalated, and resolved before they impacted timelines.</div>
+      </div>
+    </a>
+
+    <a class="artifact-row" href="sop-delivery.html">
+      <span class="artifact-icon">SOP</span>
+      <div>
+        <div class="artifact-title">End-to-End Delivery Workflow SOP</div>
+        <div class="artifact-desc">One of 4 SOPs built and adopted across the Brandshark delivery team. Covers project kickoff to sign-off: sprint structure, review gates, change request handling, and escalation paths.</div>
+      </div>
+    </a>
+
+    <a class="artifact-row" href="release-checklist.html">
+      <span class="artifact-icon">REL</span>
+      <div>
+        <div class="artifact-title">Release Readiness Checklist</div>
+        <div class="artifact-desc">Pre-release checklist used to coordinate engineering, QA, and design before a client-facing release. Covers sign-off gates, rollback conditions, and communication triggers.</div>
+      </div>
+    </a>
+
+  </section>
+
+  <!-- TOOLS -->
+  <section id="tools" style="border-bottom: none;">
+    <div class="section-label">04 — Tools and Skills</div>
+    <div class="tools-grid">
+      <div class="tool-row">
+        <div class="tool-cat">Delivery and Boards</div>
+        <div class="tool-list">Jira, Confluence, Trello, Notion, Asana, Microsoft Teams</div>
+      </div>
+      <div class="tool-row">
+        <div class="tool-cat">Methodologies</div>
+        <div class="tool-list">Agile, Scrum, Kanban, Waterfall, Sprint Planning, Milestone Governance</div>
+      </div>
+      <div class="tool-row">
+        <div class="tool-cat">Delivery Metrics</div>
+        <div class="tool-list">Velocity, Cycle Time, Burndown, RAID Logs, Risk Registers, SLA Tracking</div>
+      </div>
+      <div class="tool-row">
+        <div class="tool-cat">Reporting and Analytics</div>
+        <div class="tool-list">Power BI, Advanced Excel, Google Sheets, Notion Dashboards, Basic SQL</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="left">kiran prasanth r · 2026</div>
+    <div class="links">
+      <a href="mailto:kiranprasanth01@gmail.com">Email</a>
+      <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+    </div>
+  </footer>
+
 </div>
 
-<div class="tickets-section">
-  <p class="section-label">Tickets — 4 samples</p>
-
-  <!-- Ticket 1 -->
-  <a class="ticket-card" href="lt-2047.html">
-    <div class="card-top">
-      <div class="card-meta">
-        <span class="ticket-id-badge">LT-2047</span>
-        <span class="tag t-blue">Feature</span>
-        <span class="tag t-surface">5 pts</span>
-      </div>
-      <span class="arrow">↗</span>
-    </div>
-    <p class="card-title">Real-time delay alerts for fleet managers when shipment ETAs shift beyond threshold</p>
-    <p class="card-desc">Scoped a proactive notification system on a logistics SaaS platform. When live GPS-tracked ETA deviates from the committed delivery window, fleet managers receive an in-app and email alert — with configurable thresholds, cool-down logic, and a Slack-based escalation path.</p>
-    <div class="card-footer">
-      <span class="role-badge">
-        <span class="role-dot" style="background:#1D9E75"></span>
-        Trinetra Logistics Platform
-      </span>
-      <span class="divider">·</span>
-      <span class="role-badge">Notifications · Backend</span>
-      <div class="complexity-bar">
-        <span>Complexity</span>
-        <div class="bar-dots">
-          <div class="bar-dot filled"></div>
-          <div class="bar-dot filled"></div>
-          <div class="bar-dot"></div>
-        </div>
-      </div>
-    </div>
-  </a>
-
-  <!-- Ticket 2 -->
-  <a class="ticket-card" href="bs-114.html">
-    <div class="card-top">
-      <div class="card-meta">
-        <span class="ticket-id-badge">BS-114</span>
-        <span class="tag t-purple">Feature</span>
-        <span class="tag t-surface">8 pts</span>
-      </div>
-      <span class="arrow">↗</span>
-    </div>
-    <p class="card-title">Self-service brand asset portal so clients can access approved files without raising a studio request</p>
-    <p class="card-desc">Scoped a client-facing brand portal for a design studio, eliminating post-delivery asset requests. Covers per-client access control, CMS-driven file management, click-to-copy colour values, download logging, and font licensing constraints — all without requiring developer intervention for updates.</p>
-    <div class="card-footer">
-      <span class="role-badge">
-        <span class="role-dot" style="background:#534AB7"></span>
-        Brandshark Design Studio
-      </span>
-      <span class="divider">·</span>
-      <span class="role-badge">Web Dev · Design Systems</span>
-      <div class="complexity-bar">
-        <span>Complexity</span>
-        <div class="bar-dots">
-          <div class="bar-dot filled"></div>
-          <div class="bar-dot filled"></div>
-          <div class="bar-dot"></div>
-        </div>
-      </div>
-    </div>
-  </a>
-
-  <!-- Ticket 3 -->
-  <a class="ticket-card" href="bs-089.html">
-    <div class="card-top">
-      <div class="card-meta">
-        <span class="ticket-id-badge">BS-089</span>
-        <span class="tag t-amber">Epic</span>
-        <span class="tag t-surface">13 pts</span>
-      </div>
-      <span class="arrow">↗</span>
-    </div>
-    <p class="card-title">Automated design token sync pipeline — push Figma variable changes to client codebase via PR, no manual handoff</p>
-    <p class="card-desc">Specced an end-to-end automation pipeline that detects Figma variable updates, transforms tokens via Style Dictionary, applies semantic versioning logic, and auto-opens a GitHub PR with a structured diff. Includes multi-mode token support, rate-limit handling, Slack alerts for breaking changes, and per-client config isolation.</p>
-    <div class="card-footer">
-      <span class="role-badge">
-        <span class="role-dot" style="background:#BA7517"></span>
-        Brandshark Design Studio
-      </span>
-      <span class="divider">·</span>
-      <span class="role-badge">Design Systems · Integrations · CI</span>
-      <div class="complexity-bar">
-        <span>Complexity</span>
-        <div class="bar-dots">
-          <div class="bar-dot filled"></div>
-          <div class="bar-dot filled"></div>
-          <div class="bar-dot filled"></div>
-        </div>
-      </div>
-    </div>
-  </a>
-
-  <!-- Ticket 4 -->
-  <a class="ticket-card" href="cr-031.html">
-    <div class="card-top">
-      <div class="card-meta">
-        <span class="ticket-id-badge">CR-031</span>
-        <span class="tag t-blue">Feature</span>
-        <span class="tag t-surface">10 pts</span>
-      </div>
-      <span class="arrow">↗</span>
-    </div>
-    <p class="card-title">AI-powered content brief generator — analyse top-ranking SERP results for a keyword and output a structured brief ready for writers</p>
-    <p class="card-desc">Scoped the core AI feature of CometRank, a full SEO SaaS suite. The system scrapes and analyses the top 10 SERP results for any target keyword, feeds structured signals into an LLM pipeline, and generates a writer-ready content brief covering recommended headings, word count, semantic keywords, and competitor gaps.</p>
-    <div class="card-footer">
-      <span class="role-badge">
-        <span class="role-dot" style="background:#E05A2B"></span>
-        CometRank · Brandshark
-      </span>
-      <span class="divider">·</span>
-      <span class="role-badge">AI · NLP · SaaS · SEO</span>
-      <div class="complexity-bar">
-        <span>Complexity</span>
-        <div class="bar-dots">
-          <div class="bar-dot filled"></div>
-          <div class="bar-dot filled"></div>
-          <div class="bar-dot filled"></div>
-        </div>
-      </div>
-    </div>
-  </a>
-
-</div>
-
-<footer>
-  <span>kiran prasanth r · pm work samples · 2026</span>
-  <span>delivery management · requirements · agile</span>
-</footer>
-
+<script>
+  function switchTab(pane, el) {
+    document.querySelectorAll('.sample-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.sample-pane').forEach(p => p.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('pane-' + pane).classList.add('active');
+  }
+</script>
 </body>
 </html>
